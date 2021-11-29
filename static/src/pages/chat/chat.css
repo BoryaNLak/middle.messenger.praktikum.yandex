@@ -94,8 +94,37 @@
   border: 0;
 }
 
-.chat__input_type_search {
+.chat__search {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.chat__search-label {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999999;
+  cursor: pointer;
+}
+
+.chat__search-label::before {
+  content: '\f002\00a0\00a0';
   font-family: FontAwesome;
+}
+
+.chat__search-input {
+  width: 100%;
+  font-family: inherit;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -107,9 +136,13 @@
   margin: 0;
   background: #EFEFEF;
   border-radius: 5px;
-  text-align: center;
+  border: 0;
+  outline: 0
 }
 
+.chat__search-input:focus ~ .chat__search-label {
+  display: none;
+}
 
 
 .chat__current-user {

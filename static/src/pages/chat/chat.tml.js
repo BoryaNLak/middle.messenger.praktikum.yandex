@@ -3,7 +3,11 @@ const tmpl = `
     <div class="chat__column chat__column_thin">
       <div class="chat__block chat__block_type_search">
         <a class="chat__link chat__link_type_profile" href="/profile">Профиль </a>
-        <input class="chat__input chat__input_type_search" type="text" value="" placeholder="&#xF002; Поиск">
+        <div class="chat__search">          
+          <input id="search" class="chat__search-input" type="text" value="" placeholder="">
+          <label class="chat__search-label" for="search"> Поиск</label>
+        </div>
+        
       </div>      
       <div class="chat__block chat__block_type_contacts">
      

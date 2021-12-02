@@ -7,7 +7,9 @@ export function render({ data, onInput }){
   const handleInput = (evt) => {
     const input = evt.target;
     const value = input.value;
-    if (typeof(onInput) === 'function') onInput(value) 
+    if (typeof(onInput) === 'function') {
+        onInput(value);
+    }
   }
 
   const input = renderDOMElement(tmpl, data);

@@ -1,28 +1,28 @@
 import { tmplDropdown, tmplDropdownItem } from './dropdownMenu.tml';
 import { renderDOMElement } from '../../utils/DOMApi';
 
-
-function renderItem({ text, icon, onClick, handleClose }) {
+function renderItem({
+  text, icon, onClick, handleClose,
+}) {
   const item = renderDOMElement(tmplDropdownItem, { text, icon });
   const handleClick = (evt) => {
-    const target = evt.target;
+    const { target } = evt;
     if (!!target && target.closest('.dropdown-menu_show')) {
-      onClick()
-      handleClose()
+      onClick();
+      handleClose();
     }
-  }
-  item.addEventListener('click', handleClick)
-  return item
+  };
+  item.addEventListener('click', handleClick);
+  return item;
 }
 
 export function render({ items, styles }) {
-
   const dropDownMenu = renderDOMElement(tmplDropdown, { styles });
 
   const handleCloseDropdownByOverlay = (evt) => {
-    const target = evt.target;
+    const { target } = evt;
     if (!!target && !target.closest('.dropdown-menu')) {
-      hideDropdown()
+      hideDropdown();
     }
   };
 
@@ -31,29 +31,27 @@ export function render({ items, styles }) {
     setTimeout(() => {
       setEventListener();
     }, 0);
-  }
+  };
 
   const hideDropdown = () => {
     dropDownMenu.classList.remove('dropdown-menu_show');
     setTimeout(() => {
       removeEvents();
     }, 0);
-  }
+  };
 
   const setEventListener = () => {
     document.body.addEventListener('click', handleCloseDropdownByOverlay);
-  }
+  };
 
   const removeEvents = () => {
     document.body.removeEventListener('click', handleCloseDropdownByOverlay);
-  }
+  };
 
-  items.forEach(dataItem => {
+  items.forEach((dataItem) => {
     const item = renderItem({ ...dataItem, handleClose: hideDropdown });
     dropDownMenu.append(item);
   });
 
-
-
-  return { getDOM: function () { return dropDownMenu }, show: function () { showDropdown() }, hide: function () { hideDropdown() } }
+  return { getDOM() { return dropDownMenu; }, show() { showDropdown(); }, hide() { hideDropdown(); } };
 }

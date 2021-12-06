@@ -1,6 +1,5 @@
-import MainLayout from './layout/main/index.js'
+import MainLayout from './layout/main/index.js';
 import './index.css';
-
 
 const root = document.querySelector('#root');
 

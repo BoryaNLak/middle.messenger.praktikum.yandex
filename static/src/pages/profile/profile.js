@@ -5,20 +5,18 @@ import { inputsDataProfile, inputsDataChangePassword, userDataProfile } from '..
 
 let isDisable = true;
 
-function renderInputs(inputsData, wrap){
-  inputsData.forEach(data => {
-    const input = InputProfile({data: {...data, isDisable}});
+function renderInputs(inputsData, wrap) {
+  inputsData.forEach((data) => {
+    const input = InputProfile({ data: { ...data, isDisable } });
     wrap.append(input);
-  })
+  });
 }
 
-function dropWrap(wrap){
+function dropWrap(wrap) {
   wrap.innerHTML = '';
 }
 
-
-export function render(){
-
+export function render() {
   const page = renderDOMElement(tmpl, userDataProfile);
   const inputWrapper = page.querySelector('.profile__fieldset');
   const menuWrapper = page.querySelector('.profile__links');
@@ -48,8 +46,8 @@ export function render(){
     dropWrap(inputWrapper);
     showMenu();
     isDisable = true;
-    renderInputs(inputsDataProfile, inputWrapper);    
-  }
+    renderInputs(inputsDataProfile, inputWrapper);
+  };
 
   const initChangeData = () => {
     isDisable = false;
@@ -58,7 +56,7 @@ export function render(){
     hideMenu();
     showSaveButtom();
     saveShangesButtom.addEventListener('click', handleClickSaveChanges);
-  }
+  };
 
   const initChangePassword = () => {
     dropWrap(inputWrapper);
@@ -67,35 +65,33 @@ export function render(){
     hideMenu();
     showSaveButtom();
     saveShangesButtom.addEventListener('click', handleClickChangePassword);
-  }
+  };
 
   const handleClickSaveChanges = () => {
     console.log('Данные изменены');
     saveShangesButtom.removeEventListener('click', handleClickSaveChanges);
     initProfile();
-  }
+  };
 
   const handleClickChangePassword = () => {
     console.log('Пароль изменен');
     saveShangesButtom.removeEventListener('click', handleClickChangePassword);
     initProfile();
-  }
+  };
 
   const handleChangeData = () => {
     initChangeData();
-  }
+  };
 
   const handleChangePassword = () => {
     initChangePassword();
-  }  
+  };
 
   changeDataButtom.addEventListener('click', handleChangeData);
   changePassowrdButtom.addEventListener('click', handleChangePassword);
-  backButtom.addEventListener('click',initProfile);
-  
+  backButtom.addEventListener('click', initProfile);
+
   initProfile();
 
-  return page
-
+  return page;
 }
-

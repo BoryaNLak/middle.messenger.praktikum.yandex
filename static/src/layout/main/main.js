@@ -10,8 +10,7 @@ import { renderDOMElement } from '../../utils/DOMApi';
 
 const mainLayout = renderDOMElement(tmpl);
 
-export function render(){ 
-
+export function render() {
   const pages = {
     '/profile': Profile,
     '/chat': Chat,
@@ -20,14 +19,14 @@ export function render(){
     '/signup': Signup,
     '/notfound': NotFoundPage,
     '/servererror': ServerNotRespondError,
-  }
+  };
 
   const router = () => {
     const currentRoute = window.location.pathname;
-    return pages[currentRoute]
-  }  
-  
+    return pages[currentRoute];
+  };
+
   const page = router();
   mainLayout.append(page());
-  return mainLayout
+  return mainLayout;
 }

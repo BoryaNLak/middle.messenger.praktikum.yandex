@@ -10,6 +10,7 @@
 /build
 /dist
 /.parcel-cache
+/node_modules
 
 # misc
 .DS_Store
@@ -21,4 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-node_modules
+
+
+

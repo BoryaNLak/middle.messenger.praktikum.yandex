@@ -18,8 +18,10 @@ npm run start
 ```
 
 Ссылка на **Notlify**
+
 *https://gallant-noether-e603a9.netlify.app/*
 
 Ссылка на **pull-request**
 
 *https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/1*
+

@@ -1,0 +1,46 @@
+.error-window {
+  margin: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-window__header {
+  font-family: inherit;
+  color: inherit;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 3rem;
+  padding: 0;
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+.error-window__message {
+  font-family: inherit;
+  color: inherit;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0 0 70px 0;
+  text-align: center; 
+}
+
+.error-window__link {
+  font-family: inherit;
+  color: #3369F3;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  text-align: center;
+}
+
+.error-window__link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}

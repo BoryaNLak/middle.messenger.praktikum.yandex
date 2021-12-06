@@ -1,0 +1,77 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 30px 30px 30px;
+  margin: auto;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  width: 340px;
+}
+
+.login__header {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  color: inherit;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.login__form {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.login__fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.login__buttom {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: #FFF;
+  padding: 12px 0;
+  margin: 30% 0 0 0;
+  border-radius: 8px;
+  background-color: #3369F3;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  cursor: pointer;  
+}
+
+.login__buttom:hover {
+  opacity: 0.8;
+}
+
+.login__link {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 11px;
+  color: #3369F3;
+  text-decoration: none;
+  margin: 15px auto 0 auto;
+}
+
+.login__link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}

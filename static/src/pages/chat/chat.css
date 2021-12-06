@@ -47,6 +47,9 @@
   width: 100%;
   border-bottom: 1px solid #EAEAEA;
   padding-bottom: 10px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .chat__block_type_messages {
@@ -55,11 +58,14 @@
   justify-content: flex-end;
   overflow-x: hidden;
   overflow-y: auto;
-  flex: 1;
+  flex: 1;  
 }
 
 .chat__block_type_input-message {
   width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .chat__link {
@@ -215,7 +221,7 @@
   padding-top: 10px;
 }
 
-.chat__attach-buttom {
+.chat__attach-button {
   width: 28px;
   height: 28px;
   border: 0;
@@ -229,7 +235,7 @@
   cursor: pointer;
 }
 
-.chat__attach-buttom:hover{
+.chat__attach-buttonf:hover{
   opacity: 0.8;
 }
 
@@ -242,7 +248,7 @@
   padding: 10px 20px;
 }
 
-.chat__send_message-buttom {
+.chat__send_message-button {
   width: 28px;
   height: 28px;
   border: 0;
@@ -255,6 +261,6 @@
   cursor: pointer;
 }
 
-.chat__send_message-buttom:hover {
+.chat__send_message-button:hover {
   opacity: 0.8;
 }

@@ -8,8 +8,9 @@ import Profile from '../../pages/profile';
 import Chat from '../../pages/chat';
 import { renderDOMElement } from '../../utils/DOMApi';
 
-export function render(){
-  const mainLayout = renderDOMElement(tmpl);
+const mainLayout = renderDOMElement(tmpl);
+
+export function render(){ 
 
   const pages = {
     '/profile': Profile,

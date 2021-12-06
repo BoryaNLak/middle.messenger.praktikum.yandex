@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "./node_modules/.bin/parcel ./static/index.html",
-    "build": "./node_modules/.bin/parcel build ./static/index.html"
+    "dev": "parcel ./static/index.html",
+    "build": "parcel build ./static/index.html"
   },
   "keywords": [],
   "author": "Boris",

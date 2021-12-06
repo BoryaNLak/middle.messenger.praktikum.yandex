@@ -1,7 +1,6 @@
 import Handlebars from 'handlebars';
 
 export function renderDOMElement(templateStr, data = {}){
-
   const template = Handlebars.compile(templateStr);
   const templateWithData = template(data); 
   const wrapper = document.createElement('div');

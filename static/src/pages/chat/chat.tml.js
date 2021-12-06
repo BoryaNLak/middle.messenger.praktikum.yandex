@@ -28,9 +28,9 @@ const tmpl = `
       </div>
       <div class="chat__block chat__block_type_input-message">
         <div class="chat__create-message">
-          <button type="button" class="chat__attach-buttom"></button>
+          <button type="button" class="chat__attach-button"></button>
           <input type="text" class="chat__input-message" placeholder="Сообщение">
-          <button type="button" class="chat__send_message-buttom"></button>
+          <button type="button" class="chat__send_message-button"></button>
         </div>
       </div>
     </div>

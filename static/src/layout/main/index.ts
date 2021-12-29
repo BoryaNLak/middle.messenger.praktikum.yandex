@@ -8,16 +8,16 @@ import ChatPage from '../../pages/chat';
 import ProfilePage from '../../pages/profile';
 
 const loginPage = LoginPage();
-const signupPage = SignupPage();
-const notFoundPage = NotFoundPage();
-const serverNotResponPage = ServerNotResponPage();
-const chatPage = ChatPage();
+// const signupPage = SignupPage();
+// const notFoundPage = NotFoundPage();
+// const serverNotResponPage = ServerNotResponPage();
+// const chatPage = ChatPage();
 const profilePage = ProfilePage();
 
 const pages = {
   '/profile': profilePage,
   // '/chat': chatPage,
-  // '/login': loginPage,
+  '/login': loginPage,
   // '/': loginPage,
   // '/signup': signupPage,
   // '/notfound': notFoundPage,

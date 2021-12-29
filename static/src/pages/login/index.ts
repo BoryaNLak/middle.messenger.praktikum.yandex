@@ -3,7 +3,7 @@ import Login from './login';
 import InputCredentialsRender from '../../components/inputCredentials';
 import { inputsDataLogin } from '../../utils/constants';
 
-export default function LoginPage(): Login {
+function LoginPage(): Login {
   const login = new Login(
     {
       loginInput: InputCredentialsRender({ ...inputsDataLogin[0] }),
@@ -12,3 +12,5 @@ export default function LoginPage(): Login {
   );
   return login;
 }
+
+export default LoginPage;

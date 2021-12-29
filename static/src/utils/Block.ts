@@ -81,9 +81,8 @@ export default class Block {
 
     this._removeEvents();
     this._element.innerHTML = '';
-
     this._element.appendChild(block);
-
+    this._element = this._element.childNodes[0];
     this._addEvents();
   }
 
@@ -125,20 +124,22 @@ export default class Block {
   _addEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      const childNode = this._element.childNodes[0];
-      if (childNode) {
-        childNode.addEventListener(eventName, events[eventName]);
-      }
+      // const childNode = this._element.childNodes[0];
+      // if (childNode) {
+      //   childNode.addEventListener(eventName, events[eventName]);
+      // }
+      this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
   _removeEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      const childNode = this._element.childNodes[0];
-      if (childNode) {
-        childNode.removeEventListener(eventName, events[eventName]);
-      }
+      // const childNode = this._element.childNodes[0];
+      // if (childNode) {
+      //   childNode.removeEventListener(eventName, events[eventName]);
+      // }
+      this._element.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -164,7 +165,8 @@ export default class Block {
   render() { }
 
   getContent() {
-    return this._element.childNodes[0];
+    // return this._element.childNodes[0];
+    return this._element;
   }
 
   setProps = (nextProps) => {
@@ -173,10 +175,6 @@ export default class Block {
     }
     Object.assign(this.props, nextProps);
   };
-
-  getElement() {
-    return this._element;
-  }
 
   compile(template, props) {
     const propsAndStubs = { ...props };
@@ -188,8 +186,8 @@ export default class Block {
     });
     const fragment = <HTMLTemplateElement> this._createDocumentElement('template');
 
-    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
-
+    const handlerBarTemplate = Handlebars.compile(template)(propsAndStubs);
+    fragment.innerHTML = handlerBarTemplate;
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       stub.replaceWith(child.getContent());

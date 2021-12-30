@@ -6,43 +6,23 @@ import ProfileButton from './components/button/button';
 
 const form = MainFormRender();
 
-const setForm = (formElement) => {
-  form.setProps({ form: formElement });
-};
-
-const handleChangeProfile = () => {
-  console.log('change Data');
-};
-
-
-const handleChangePassword = () => {
-  console.log('change Password');
-  console.log(changeProfileButton.props);
-  changeProfileButton.setProps({ text: 'Updated text on button' });
-  console.log(changeProfileButton.props);
-};
-
 const profile = new Profile(
   {
-    name: 'qwerty',
-    buttonText: 'Change name',
-    form,
-    // changeProfileButton,
-    // changePasswordButton,
+    name: 'Иванушка',
+    profileDataButtonText: 'Изменить данные',
+    passwordButtonText: 'Исменить пароль',
   },
 );
-console.log('---------------------------------------------');
 
 function ProfilePage(): Profile {
   return profile;
 }
-console.log('------',profile._element)
 
 setTimeout(() => {
   profile.setProps({
     name: 'Click me, please',
+    passwordButtonText: 'New Button Text',
   });
-  console.log(profile._element)
 }, 1000);
 
 export default ProfilePage;

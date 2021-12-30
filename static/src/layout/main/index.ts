@@ -29,7 +29,7 @@ const router = () => {
   return pages[currentRoute];
 };
 
-export default function MainLayout(): Main {
+function MainLayout(): Main {
   const main = new Main(
     {
       child: router(),
@@ -37,3 +37,5 @@ export default function MainLayout(): Main {
   );
   return main;
 }
+
+export default MainLayout;

@@ -2,7 +2,6 @@ import InputElement from '../input';
 
 type IProps = {
   styles: {
-    form_group_styles: string,
     label_styles: string,
     input_styles: string,
     error_styles: string
@@ -20,6 +19,7 @@ class InputCredentials extends InputElement {
 
   constructor(props: IProps) {
     super(props);
+    this.wrapperStyles = 'form-group form-group_column';
     this.props = props;
   }
 }

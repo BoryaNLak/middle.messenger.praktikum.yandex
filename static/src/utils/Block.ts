@@ -24,6 +24,8 @@ export default class Block {
 
   tagName: string;
 
+  wrapperStyles: string;
+
   _meta: {
     tagName: string,
     props: unknown,
@@ -34,7 +36,7 @@ export default class Block {
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;
-
+    this.wrapperStyles = '';
     this._meta = {
       tagName,
       props,
@@ -55,6 +57,10 @@ export default class Block {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
+  _setWrapperStyles(): void {
+    this._element.setAttribute('class', this.wrapperStyles);
+  }
+
   _createResources() {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
@@ -73,21 +79,26 @@ export default class Block {
     if (!response) {
       return;
     }
+    console.log('asd',response,{ ...this.props })
     this._render();
   }
 
   _render() {
     const block = this.render();
-
     this._removeEvents();
     this._element.innerHTML = '';
-    this._element.appendChild(block);
-    this._element = this._element.childNodes[0];
+    try {
+      this._element.appendChild(block);
+    } catch {
+      this._element.innerHTML = block;
+    }
     this._addEvents();
+    this._setWrapperStyles();
   }
 
   _makePropsProxy(props) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
+    console.log(props)
     const self = this;
     return new Proxy(props, {
       get(target, prop) {
@@ -95,10 +106,10 @@ export default class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: object, prop: string, value: unknown) {
-        const res = target;
-        res[prop] = value;
+        const clone = { ...target };
+        target[prop] = value;
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, clone, target);
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...res }, res);
         return true;
       },
       deleteProperty() {

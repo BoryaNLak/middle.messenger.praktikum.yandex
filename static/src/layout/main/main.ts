@@ -18,7 +18,7 @@ export default class Main extends Block {
   props: { child: HTMLElement };
 
   constructor(props: IProps) {
-    super('main', props);
+    super('div', props);
     this.props = props;
   }
 

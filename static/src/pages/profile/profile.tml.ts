@@ -1,5 +1,4 @@
 const tmpl = `
-  <section class="profile">
     <div class="profile__window">
       <div class="profile__photo-part">
         <img class="profile__photo" src="{{ photo }}" alt="profile_photo"/>
@@ -16,7 +15,6 @@ const tmpl = `
       <button class="profile__save-buttom" type="button">Сохранить</button>
     </div>
      <button class="profile__button-back" type="button"></button>
-  </section>
 `.trim();
 
 export default tmpl;

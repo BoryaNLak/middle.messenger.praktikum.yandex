@@ -12,6 +12,7 @@
 //   return input;
 // }
 
+import { v4 as makeUUID } from 'uuid';
 import InputElement from '../../../../components/input';
 
 type IProps = {
@@ -32,8 +33,12 @@ type IProps = {
 class InputProfile extends InputElement {
   props: IProps;
 
+  _id: string;
+
   constructor(props: IProps) {
     super(props);
+    this.wrapperStyles = 'form-group form-group_row form-group_type_profile';
+    this._id = makeUUID();
     this.props = props;
   }
 }

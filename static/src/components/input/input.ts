@@ -11,7 +11,6 @@ type IProps = {
   name?: string,
   type?: string,
   styles: {
-    form_group_styles: string,
     label_styles: string,
     input_styles: string,
     error_styles: string
@@ -26,6 +25,7 @@ class Input extends Block {
   constructor(props: IProps) {
     super('div', props);
     this.props = props;
+    this.wrapperStyles = '';
     this._id = makeUUID();
   }
 

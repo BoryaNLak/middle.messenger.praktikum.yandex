@@ -10,11 +10,11 @@ const tmpl = `
       <div class="profile__links">
         {{{ changeProfileDataButton }}}
         {{{ changePasswordButton }}}
-        <a  class="profile__link profile__link_alert" href="/login">Выйти</a>
+        {{{ exitButton }}}
+        {{!-- <a  class="profile__link profile__link_alert" href="/login">Выйти</a> --}}
       </div>
-      <button class="profile__save-buttom" type="button">Сохранить</button>
     </div>
-     <button class="profile__button-back" type="button"></button>
+     {{{ profileNavigationButton }}}
 `.trim();
 
 export default tmpl;

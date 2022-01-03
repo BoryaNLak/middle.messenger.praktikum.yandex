@@ -1,11 +1,10 @@
 const tmpl = `
-  <form class="profile__form">
     <fieldset class="profile__fieldset">
       {{{ oldPassword }}}
       {{{ newPassword }}}
       {{{ confirmPassword }}}
     </fieldset>
-  </form>
+    {{{ submit }}}
 `.trim();
 
 export default tmpl;

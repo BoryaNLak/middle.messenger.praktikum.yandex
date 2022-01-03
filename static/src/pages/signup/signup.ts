@@ -1,22 +1,27 @@
+import { v4 as makeUUID } from 'uuid';
 import tmpl from './signup.tml';
 import Block from '../../utils/Block';
-
-type IProps = {
-  emailInput: HTMLInputElement,
-  loginInput: HTMLInputElement,
-  firstNameInput: HTMLInputElement,
-  secondNameInput: HTMLInputElement,
-  phoneInput: HTMLInputElement,
-  passwordInput: HTMLInputElement,
-  confirmPasswordInput: HTMLInputElement,
-}
+import SignupForm from './components/forms/signup/signupForm';
 
 class Signup extends Block {
-  props: IProps;
+  _id: string;
 
-  constructor(props: IProps) {
-    super('div', props);
-    this.props = props;
+  children: {
+    form: SignupForm,
+  };
+
+  constructor(props = {}) {
+    super('section', props);
+    this._id = makeUUID();
+    this.wrapperStyles = 'signup';
+    this.children.form = new SignupForm({
+      events: {
+        submit: (evt: Event) => {
+          console.log('submit signup');
+          evt.preventDefault();
+        },
+      },
+    });
   }
 
   render() {

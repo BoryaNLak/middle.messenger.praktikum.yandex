@@ -1,5 +1,4 @@
 import { v4 as makeUUID } from 'uuid';
-import tmpl from './button.tml';
 import Block from '../../../../utils/Block';
 
 type IProps = {
@@ -18,16 +17,22 @@ class ProfileButton extends Block {
     super('button', props);
     this._id = makeUUID();
     this.wrapperStyles = 'profile__navigation-buttom profile__navigation-buttom_type_change-data';
-    this.props = props;
+    this.setWrapperAttribute('type', 'button');
+  }
+
+  hideButton() {
+    this.setWrapperStyles('profile__navigation-buttom_hidden');
+  }
+
+  setAlertButton() {
+    this.setWrapperStyles('profile__navigation-buttom_type_alert');
   }
 
   componentDidUpdate(oldProps, newProps) {
-    console.log('Обновление кнопки');
     return true;
   }
 
   render() {
-    // return this.compile(tmpl, this.props);
     return `<span>${this.props.text}</span>`;
   }
 }

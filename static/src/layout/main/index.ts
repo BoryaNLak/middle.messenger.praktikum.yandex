@@ -8,9 +8,9 @@ import ChatPage from '../../pages/chat';
 import ProfilePage from '../../pages/profile';
 
 const loginPage = LoginPage();
-// const signupPage = SignupPage();
-// const notFoundPage = NotFoundPage();
-// const serverNotResponPage = ServerNotResponPage();
+const signupPage = SignupPage();
+const notFoundPage = NotFoundPage();
+const serverNotResponPage = ServerNotResponPage();
 // const chatPage = ChatPage();
 const profilePage = ProfilePage();
 
@@ -19,9 +19,9 @@ const pages = {
   // '/chat': chatPage,
   '/login': loginPage,
   // '/': loginPage,
-  // '/signup': signupPage,
-  // '/notfound': notFoundPage,
-  // '/servererror': serverNotResponPage,
+  '/signup': signupPage,
+  '/notfound': notFoundPage,
+  '/servererror': serverNotResponPage,
 };
 
 const router = () => {

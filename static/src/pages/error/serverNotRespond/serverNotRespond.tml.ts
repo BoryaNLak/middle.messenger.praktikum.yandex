@@ -1,4 +1,4 @@
 const tmpl = `
-  <div class="server-not-respod-error-page">{{{ serverNotRespondWindow }}}</div>
+  <div class="server-not-respod-error-page">{{{ window }}}</div>
 `.trim();
 export default tmpl;

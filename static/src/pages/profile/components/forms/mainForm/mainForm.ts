@@ -19,7 +19,6 @@ class MainForm extends Block {
 
   constructor(props: IProps) {
     super('div', props);
-    this.props = props;
     this._id = makeUUID();
   }
 

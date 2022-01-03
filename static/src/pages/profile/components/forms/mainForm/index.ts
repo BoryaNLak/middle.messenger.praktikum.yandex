@@ -1,6 +1,7 @@
 import MainForm from './mainForm';
 import InputProfileRender from '../../inputProfile';
 import { inputsDataProfile } from '../../../../../utils/constants';
+import Submit from '../../submit/submit';
 
 function MainFormRender() {
   const mainForm = new MainForm({

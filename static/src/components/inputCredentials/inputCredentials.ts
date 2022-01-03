@@ -1,11 +1,7 @@
 import InputElement from '../input';
+import './inputCredentials.css';
 
 type IProps = {
-  styles: {
-    label_styles: string,
-    input_styles: string,
-    error_styles: string
-  },
   value?: string,
   id?: string,
   label?: string,
@@ -14,13 +10,25 @@ type IProps = {
   type?: string,
 }
 
+const styles = {
+  label_styles: 'form-group__label_type_credentials',
+  input_styles: 'form-group__input_type_credentials',
+  error_styles: 'form-group__error_type_credentials',
+};
+
 class InputCredentials extends InputElement {
   props: IProps;
 
+  styles: {
+    label_styles: string,
+    input_styles: string,
+    error_styles: string,
+  };
+
   constructor(props: IProps) {
     super(props);
+    this.setProps({ styles });
     this.wrapperStyles = 'form-group form-group_column';
-    this.props = props;
   }
 }
 

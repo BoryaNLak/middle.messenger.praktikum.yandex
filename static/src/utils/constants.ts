@@ -104,6 +104,6 @@ export const messagesData = [
   { text: 'В связи с этим я решил опробовать себя в роли рассказчика и затронуть техническую сторону Bitbucket. Прошу не рассматривать моё намерение как попытку рекламы, ибо я совершенно не преследую эту цель. Если эта статья обнаружит интерес со стороны читателей, я буду рад развивать тему и постараюсь ответить на возникающие вопросы.', date: '13.12.2020' },
 ];
 
-export const dataServerError = { number: '500', message: 'Мы уже фиксим' };
+export const dataServerError = { number: 500, message: 'Мы уже фиксим' };
 
-export const dataNotFoundError = { number: '404', message: 'Не туда попали' };
+export const dataNotFoundError = { number: 404, message: 'Не туда попали' };

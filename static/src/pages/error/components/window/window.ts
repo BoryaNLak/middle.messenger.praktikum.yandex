@@ -16,8 +16,8 @@ class Window extends Block {
 
   constructor(props: IProps) {
     super('main', props);
-    this.props = props;
     this._id = makeUUID();
+    this.wrapperStyles = 'error-window';
   }
 
   render() {

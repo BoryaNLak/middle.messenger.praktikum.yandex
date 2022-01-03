@@ -57,8 +57,13 @@ export default class Block {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _setWrapperStyles(): void {
-    this._element.setAttribute('class', this.wrapperStyles);
+  setWrapperStyles(classStyle = ''): void {
+    this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`;
+    this.setWrapperAttribute('class', `${this.wrapperStyles}`);
+  }
+
+  setWrapperAttribute(attribute:string, value:string): void {
+    this._element.setAttribute(attribute, value);
   }
 
   _createResources() {
@@ -79,7 +84,6 @@ export default class Block {
     if (!response) {
       return;
     }
-    console.log('asd',response,{ ...this.props })
     this._render();
   }
 
@@ -93,12 +97,12 @@ export default class Block {
       this._element.innerHTML = block;
     }
     this._addEvents();
-    this._setWrapperStyles();
+    this.setWrapperStyles();
   }
 
   _makePropsProxy(props) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    console.log(props)
+
     const self = this;
     return new Proxy(props, {
       get(target, prop) {
@@ -109,7 +113,6 @@ export default class Block {
         const clone = { ...target };
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, clone, target);
-
         return true;
       },
       deleteProperty() {
@@ -146,12 +149,15 @@ export default class Block {
   _removeEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      // const childNode = this._element.childNodes[0];
-      // if (childNode) {
-      //   childNode.removeEventListener(eventName, events[eventName]);
-      // }
       this._element.removeEventListener(eventName, events[eventName]);
     });
+  }
+
+  redefineEvent(eventName:string, handler: () => void) {
+    const events = { ...this.props.events };
+    events[eventName] = handler;
+    this._removeEvents();
+    this.setProps({ events });
   }
 
   _createDocumentElement(tagName: string): HTMLElement | HTMLTemplateElement {
@@ -191,7 +197,6 @@ export default class Block {
     const propsAndStubs = { ...props };
 
     this._removeEvents();
-
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
@@ -205,7 +210,6 @@ export default class Block {
     });
 
     this._addEvents();
-
     return fragment.content;
   }
 

@@ -4,14 +4,35 @@ const tmpl = `
       id="{{ id }}"
       type="{{ type }}"
       class="{{ styles.input_styles }}"
-      value="{{ value }}" name="{{ name }}"
+      value="{{{ value }}}"
+      name="{{ name }}"
       placeholder="{{ placeholder }}"
-      {{#if isDisable}}
+      {{#if isDisable }}
         disabled='true'
-      {{else }}
+      {{/if}}
+      {{#if required }}
+        required
+      {{/if}}
+      {{#if minLen }}
+        minlength="{{ minLen }}"
+      {{/if}}
+      {{#if maxLen }}
+        maxlength="{{ maxLen }}"
+      {{/if}}
+      {{#if minVal }}
+        min="{{ minVal }}"
+      {{/if}}
+      {{#if maxVal }}
+        max="{{ maxVal }}"
+      {{/if}}
+      {{#if pattern }}
+        pattern="{{ pattern }}"
       {{/if}}
       />
-    <span class="{{ styles.error_styles }}">{{ error_message }}</span>
+    {{#if isValid }}
+    {{else }}
+      <span class="{{ styles.error_styles }}">{{ error_message }}</span>
+    {{/if}}
 `.trim();
 
 export default tmpl;

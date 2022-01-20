@@ -15,11 +15,8 @@ class Signup extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'signup';
     this.children.form = new SignupForm({
-      events: {
-        submit: (evt: Event) => {
-          console.log('submit signup');
-          evt.preventDefault();
-        },
+      handleSubmit: (formData) => {
+        console.log(formData);
       },
     });
   }

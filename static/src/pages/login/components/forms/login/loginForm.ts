@@ -4,8 +4,17 @@ import Block from '../../../../../utils/Block';
 import InputCredentials from '../../../../../components/inputCredentials/inputCredentials';
 import Submit from '../../submit/submit';
 import { inputsDataLogin } from '../../../../../utils/constants';
+import FormStore from '../../../../../utils/FormStore';
+import formValidator from '../../../../../utils/FormValidator';
 
-type IProps = {}
+const FORM_NAME = 'loginForm';
+
+const localStore = FormStore.initFormStore(FORM_NAME);
+
+type IProps = {
+  handleSubmit: (formData: Record<string, string>) => void,
+  events?: Record<string, () => void>,
+}
 
 class LoginForm extends Block {
   props: IProps;
@@ -24,9 +33,33 @@ class LoginForm extends Block {
     super('form', props);
     this._id = makeUUID();
     this.wrapperStyles = 'login__form';
-    this.children.loginInput = new InputCredentials({ ...inputsDataLogin[0] });
-    this.children.passwordInput = new InputCredentials({ ...inputsDataLogin[1] });
+    this.children.loginInput = new InputCredentials({
+      ...inputsDataLogin[0],
+      onInput: (value) => {
+        localStore.onInput('login', value);
+      },
+    });
+    this.children.passwordInput = new InputCredentials({
+      ...inputsDataLogin[1],
+      onInput: (value) => {
+        localStore.onInput('password', value);
+      },
+    });
     this.children.submit = new Submit({ text: 'Войти' });
+    this.setWrapperAttribute('novalidate', 'true');
+    this.setProps({
+      events: {
+        submit: (evt: Event) => {
+          evt.preventDefault();
+          const formChildren = this.children;
+          const isFormValid = formValidator(formChildren);
+          if (isFormValid) {
+            const formData = localStore.getData();
+            this.props.handleSubmit(formData);
+          }
+        },
+      },
+    });
   }
 
   render() {

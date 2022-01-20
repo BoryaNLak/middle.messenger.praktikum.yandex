@@ -1,0 +1,14 @@
+.messageForm {
+  margin: 0;
+  padding: 0;
+  width: 90%;
+}
+
+.chat__input-message {
+  width: 100%;
+  border: 0;
+  background-color: #EFEFEF;
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}

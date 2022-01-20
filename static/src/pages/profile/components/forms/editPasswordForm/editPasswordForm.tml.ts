@@ -1,8 +1,8 @@
 const tmpl = `
     <fieldset class="profile__fieldset">
-      {{{ oldPassword }}}
-      {{{ newPassword }}}
-      {{{ confirmPassword }}}
+      {{{ oldPasswordInput }}}
+      {{{ newPasswordInput }}}
+      {{{ confirmPasswordInput }}}
     </fieldset>
     {{{ submit }}}
 `.trim();

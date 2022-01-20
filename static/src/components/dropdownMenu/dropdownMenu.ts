@@ -19,6 +19,17 @@ function renderItem({
 export function render({ items, styles }) {
   const dropDownMenu: HTMLElement = renderDOMElement(tmplDropdown, { styles });
 
+  const removeEvents = () => {
+    document.body.removeEventListener('click', handleCloseDropdownByOverlay);
+  };
+
+  const hideDropdown = () => {
+    dropDownMenu.classList.remove('dropdown-menu_show');
+    setTimeout(() => {
+      removeEvents();
+    }, 0);
+  };
+
   const handleCloseDropdownByOverlay = (evt) => {
     const { target } = evt;
     if (!!target && !target.closest('.dropdown-menu')) {
@@ -33,19 +44,8 @@ export function render({ items, styles }) {
     }, 0);
   };
 
-  const hideDropdown = () => {
-    dropDownMenu.classList.remove('dropdown-menu_show');
-    setTimeout(() => {
-      removeEvents();
-    }, 0);
-  };
-
   const setEventListener = () => {
     document.body.addEventListener('click', handleCloseDropdownByOverlay);
-  };
-
-  const removeEvents = () => {
-    document.body.removeEventListener('click', handleCloseDropdownByOverlay);
   };
 
   items.forEach((dataItem) => {

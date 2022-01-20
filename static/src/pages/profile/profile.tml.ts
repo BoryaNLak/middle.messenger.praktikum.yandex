@@ -11,7 +11,6 @@ const tmpl = `
         {{{ changeProfileDataButton }}}
         {{{ changePasswordButton }}}
         {{{ exitButton }}}
-        {{!-- <a  class="profile__link profile__link_alert" href="/login">Выйти</a> --}}
       </div>
     </div>
      {{{ profileNavigationButton }}}

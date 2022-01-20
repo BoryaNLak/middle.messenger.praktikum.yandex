@@ -1,5 +1,8 @@
 import tmpl from './chat.tml';
 import Block from '../../utils/Block';
+import MessageForm from './components/messageForm';
+import FormStore from '../../utils/FormStore';
+import SendMessageButton from './components/buttons/SendMessageButton';
 import ContartRender from './components/contact';
 import MessageRender from './components/message';
 
@@ -85,21 +88,54 @@ import MessageRender from './components/message';
 //   return chatPage;
 // }
 
+const FORM_NAME = 'messageForm';
+
+const localStore = FormStore.initFormStore(FORM_NAME);
+
 type IProps = {
   contacts: HTMLElement,
   messages: HTMLElement,
+  events?: Record<string, () => void>
 }
 
 class Chat extends Block {
   props: IProps;
 
+  children: {
+    messageForm: MessageForm,
+    sendButton: SendMessageButton,
+  };
+
   constructor(props: IProps) {
-    super('div', props);
-    this.props = props;
+    super('section', props);
+    this.wrapperStyles = 'chats';
+    this.children.messageForm = new MessageForm({
+      handleInput: (value) => {
+        localStore.onInput('message', value);
+      },
+    });
+    this.children.sendButton = new SendMessageButton({
+      events: {
+        click: () => {
+          const formData = localStore.getData();
+          if (formData.message) {
+            console.log(formData);
+          }
+        },
+      },
+    });
+  }
+
+  componentDidUpdate(oldProps, newProps): boolean {
+    return true;
   }
 
   render() {
-    return this.compile(tmpl, this.props);
+    return this.compile(tmpl, {
+      ...this.props,
+      messageForm: this.children.messageForm,
+      sendButton: this.children.sendButton,
+    });
   }
 }
 

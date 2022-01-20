@@ -1,14 +1,6 @@
 import InputElement from '../input';
 import './inputCredentials.css';
-
-type IProps = {
-  value?: string,
-  id?: string,
-  label?: string,
-  error_message?: string,
-  name?: string,
-  type?: string,
-}
+import { IProps } from '../input/input';
 
 const styles = {
   label_styles: 'form-group__label_type_credentials',

@@ -1,10 +1,8 @@
 import { v4 as makeUUID } from 'uuid';
 import tmpl from './profile.tml';
 import Block from '../../utils/Block';
-import mainForm from './components/forms/editPasswordForm/editPasswordForm';
-import MainFormRender from './components/forms/mainForm';
-import EditPasswordFormRender from './components/forms/editPasswordForm';
-import editPasswordForm from './components/forms/mainForm/mainForm';
+import MainForm from './components/forms/mainForm';
+import EditPasswordForm from './components/forms/editPasswordForm';
 import ProfileButton from './components/buttons/ProfileButton';
 import ProfileNavigationButton from './components/buttons/ProfileNavigationButton';
 
@@ -18,7 +16,8 @@ type IProps = {
   profileDataButtonText: string,
   passwordButtonText: string,
   exitButtonText: string,
-  name: string
+  name: string,
+  events?: Record<string, () => void>,
 }
 
 class Profile extends Block {
@@ -29,7 +28,9 @@ class Profile extends Block {
   children: {
     changeProfileDataButton: ProfileButton,
     changePasswordButton: ProfileButton,
-    form: mainForm | editPasswordForm,
+    form: MainForm | EditPasswordForm,
+    editForm: EditPasswordForm,
+    mainForm: MainForm,
     exitButton: ProfileButton,
     profileNavigationButton: ProfileNavigationButton,
   };
@@ -42,19 +43,33 @@ class Profile extends Block {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'profile';
+    this.children.editForm = new EditPasswordForm({
+      handleSubmit: (formData) => {
+        console.log(formData);
+      },
+    });
+    this.children.mainForm = new MainForm({
+      isEditable: false,
+      handleSubmit: (formData) => {
+        console.log(formData);
+      },
+    });
+    this.children.form = this.children.mainForm;
     this.children.changeProfileDataButton = new ProfileButton({
       events: {
-        click: () => { console.log('click by data'); },
+        click: () => {
+          console.log('click by change data');
+          this.setEditMainForm();
+          this.hideMenuButtons();
+        },
       },
       text: this.props.profileDataButtonText,
     });
     this.children.changePasswordButton = new ProfileButton({
       events: {
         click: () => {
-          this.setProps({ form: EditPasswordFormRender(true) });
-          this.children.changePasswordButton.hideButton();
-          this.children.changeProfileDataButton.hideButton();
-          this.children.exitButton.hideButton();
+          this.setProps({ form: this.children.editForm });
+          this.hideMenuButtons();
           this.children.profileNavigationButton.redefineEvent('click', this.goToProfile);
         },
       },
@@ -77,12 +92,10 @@ class Profile extends Block {
       },
     });
 
-    this.children.form = MainFormRender();
-
     this.children.exitButton.setAlertButton();
 
     this.goToChats = () => {
-      goTo('/chats');
+      goTo('/chat');
     };
 
     this.goToProfile = () => {
@@ -90,7 +103,17 @@ class Profile extends Block {
     };
   }
 
-  componentDidUpdate(oldProps, newProps) {
+  setEditMainForm():void {
+    this.children.mainForm.setProps({ isEditable: true });
+  }
+
+  hideMenuButtons():void {
+    this.children.changePasswordButton.hideButton();
+    this.children.changeProfileDataButton.hideButton();
+    this.children.exitButton.hideButton();
+  }
+
+  componentDidUpdate(oldProps:Record<string, MainForm | EditPasswordForm>, newProps:Record<string, MainForm | EditPasswordForm>) {
     if (oldProps.form !== newProps.form) {
       this.children.form = newProps.form;
     }

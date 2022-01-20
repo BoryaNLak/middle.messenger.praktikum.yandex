@@ -3,6 +3,7 @@ import Block from '../../../../utils/Block';
 
 type IProps = {
   text: string,
+  events?: Record<string, () => void>,
 }
 
 class Submit extends Block {
@@ -17,7 +18,7 @@ class Submit extends Block {
     this.setWrapperAttribute('type', 'submit');
   }
 
-  componentDidUpdate(oldProps, newProps) {
+  componentDidUpdate() {
     return true;
   }
 

@@ -5,13 +5,11 @@ import Block from '../../../../utils/Block';
 type IProps = {
   number: number,
   message: string,
+  link: string,
+  events?: Record<string, () => void>
 }
 
 class Window extends Block {
-  props: { number: number,
-           message: string,
-          };
-
   _id: string;
 
   constructor(props: IProps) {

@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 
-export function renderDOMElement(templateStr, data: object = {}): HTMLElement {
+export function renderDOMElement(templateStr: string, data: object = {}): HTMLElement {
   const template: (props: object) => string = Handlebars.compile(templateStr);
 
   const templateWithData: string = template(data);
@@ -14,7 +14,7 @@ export function renderDOMElement(templateStr, data: object = {}): HTMLElement {
   throw new Error('Шаблон должен содержать 1 элемент');
 }
 
-export function setEventListener(eventName, element, callBack) {
+export function setEventListener(eventName: string, element: any, callBack: () => void) {
   if (typeof (callBack) === 'function' && !!element && !!eventName) {
     element.addEventListener(eventName, callBack);
   }

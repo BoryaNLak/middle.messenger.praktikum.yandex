@@ -1,5 +1,5 @@
 import { v4 as makeUUID } from 'uuid';
-import Block from '../../../../utils/Block';
+import Block from '../../../../../utils/Block';
 
 type IProps = {
   events: {
@@ -7,15 +7,17 @@ type IProps = {
   }
 }
 
-class ProfileNavigationButton extends Block {
+class SendMessageButton extends Block {
   props: IProps;
 
   _id: string;
 
+  wrapperStyles: string;
+
   constructor(props: IProps) {
     super('button', props);
     this._id = makeUUID();
-    this.wrapperStyles = 'profile__button-back';
+    this.wrapperStyles = 'chat__send_message-button';
     this.setWrapperAttribute('type', 'button');
   }
 
@@ -28,4 +30,4 @@ class ProfileNavigationButton extends Block {
   }
 }
 
-export default ProfileNavigationButton;
+export default SendMessageButton;

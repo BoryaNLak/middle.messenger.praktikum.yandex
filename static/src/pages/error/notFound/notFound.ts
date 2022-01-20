@@ -5,6 +5,8 @@ import Window from '../components/window';
 type IProps = {
   number: number,
   message: string,
+  link: string,
+  events?: Record<string, () => void>
 }
 
 class NotFound extends Block {
@@ -19,10 +21,11 @@ class NotFound extends Block {
     this.children.window = new Window({
       number: this.props.number,
       message: this.props.message,
+      link: this.props.link,
     });
   }
 
-  componentDidUpdate(oldProps, newProps) {
+  componentDidUpdate() {
     return true;
   }
 

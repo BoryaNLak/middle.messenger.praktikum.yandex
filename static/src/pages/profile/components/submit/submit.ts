@@ -3,6 +3,7 @@ import Block from '../../../../utils/Block';
 
 type IProps = {
   text: string,
+  events?: Record<string, () => void>,
 }
 
 class Submit extends Block {
@@ -21,7 +22,7 @@ class Submit extends Block {
     this.setWrapperStyles('profile__navigation-buttom_hidden');
   }
 
-  componentDidUpdate(oldProps, newProps) {
+  componentDidUpdate() {
     return true;
   }
 

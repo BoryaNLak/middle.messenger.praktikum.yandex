@@ -1,17 +1,15 @@
 import MainLayout from './layout/main';
 import './index.css';
+import Block from './utils/Block';
 
-// const root = document.querySelector('#root');
-
-// const mainLayoutTemplate = MainLayout();
-// root.innerHTML = '';
-// root.append(mainLayoutTemplate);
-
-function render(query, block): HTMLElement {
-  const root = document.querySelector(query);
-  root.innerHTML = '';
-  root.appendChild(block.getContent());
-  return root;
+function render(query: string, block: Block): HTMLElement | undefined {
+  const root: HTMLElement | null = document.querySelector(query);
+  if (root instanceof HTMLElement) {
+    root.innerHTML = '';
+    root.appendChild(block.getContent());
+    return root;
+  }
+  return undefined;
 }
 
 const mainLayoutTemplate = MainLayout();

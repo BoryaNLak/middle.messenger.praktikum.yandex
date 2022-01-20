@@ -58,7 +58,7 @@
   justify-content: flex-end;
   overflow-x: hidden;
   overflow-y: auto;
-  flex: 1;  
+  flex: 1;
 }
 
 .chat__block_type_input-message {
@@ -183,7 +183,7 @@
   line-height: 13px;
   text-align: left;
   padding: 0;
-  margin:  0 0 0 10px;  
+  margin:  0 0 0 10px;
 }
 
 .chat__current-user-menu {
@@ -209,7 +209,7 @@
 }
 
 .chat__current-user-menu_active {
-  background-color: #F5F5F5; 
+  background-color: #F5F5F5;
 }
 
 .chat__create-message {
@@ -237,28 +237,6 @@
 
 .chat__attach-buttonf:hover{
   opacity: 0.8;
-}
-
-.chat__input-message {
-  width: 90%;
-  border: 0;
-  background-color: #EFEFEF;
-  border-radius: 30px;
-  box-sizing: border-box;
-  padding: 10px 20px;
-}
-
-.chat__send_message-button {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 50%;
-  background-image: url(../../../icons/left_arrow.png);
-  transform: rotate(180deg);
-  background-repeat: no-repeat;
-  background-position: center;
-  outline: 0;
-  cursor: pointer;
 }
 
 .chat__send_message-button:hover {

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-this-alias */
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
-type Iprops = {
-  events?: unknown,
-  inputs?: HTMLElement[]
-}
-export default class Block {
+type Ievents = Record<string, () => void>;
+type Iprops = Record<string, any>;
+
+class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -14,11 +14,11 @@ export default class Block {
     FLOW_RENDER: 'flow:render',
   };
 
-  _element = null;
+  _element: HTMLElement | HTMLTemplateElement;
 
-  props: unknown;
+  props: Iprops;
 
-  children: unknown;
+  children: Record<string, Block>;
 
   eventBus: () => EventBus;
 
@@ -31,10 +31,11 @@ export default class Block {
     props: unknown,
   };
 
+  _id: string;
+
   constructor(tagName = 'div', propsAndChildren = {}) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
-
     this.children = children;
     this.wrapperStyles = '';
     this._meta = {
@@ -50,7 +51,7 @@ export default class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _registerEvents(eventBus) {
+  _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -75,11 +76,13 @@ export default class Block {
     this.componentDidMount({});
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
+      if (child) {
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
-  _componentDidUpdate(oldProps, newProps) {
+  _componentDidUpdate(oldProps: Record<string, string | Block>, newProps: Record<string, string | Block>) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -89,27 +92,29 @@ export default class Block {
 
   _render() {
     const block = this.render();
+
     this._removeEvents();
     this._element.innerHTML = '';
-    try {
+    if (block instanceof Node) {
       this._element.appendChild(block);
-    } catch {
+    } else if (typeof block === 'string') {
       this._element.innerHTML = block;
     }
     this._addEvents();
     this.setWrapperStyles();
   }
 
-  _makePropsProxy(props) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-
+  _makePropsProxy(props: Iprops) {
     const self = this;
     return new Proxy(props, {
-      get(target, prop) {
-        const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
+      get(target, prop: string) {
+        const value: any = target[prop];
+        if (typeof value === 'function') {
+          return value.bind(target);
+        }
+        return value;
       },
-      set(target: object, prop: string, value: unknown) {
+      set(target, prop: string, value) {
         const clone = { ...target };
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, clone, target);
@@ -121,9 +126,9 @@ export default class Block {
     });
   }
 
-  _getChildren(propsAndChildren) {
-    const children = {};
-    const props = {};
+  _getChildren(propsAndChildren: Record<string, string | Block>) {
+    const children: Record<string, Block> = {};
+    const props: Record<string, string | boolean> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -137,11 +142,7 @@ export default class Block {
 
   _addEvents() {
     const { events = {} } = this.props;
-    Object.keys(events).forEach((eventName) => {
-      // const childNode = this._element.childNodes[0];
-      // if (childNode) {
-      //   childNode.addEventListener(eventName, events[eventName]);
-      // }
+    Object.keys(events).forEach((eventName: string) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
@@ -160,8 +161,9 @@ export default class Block {
     this.setProps({ events });
   }
 
-  _createDocumentElement(tagName: string): HTMLElement | HTMLTemplateElement {
-    return document.createElement(tagName);
+  _createDocumentElement<T extends HTMLElement>(name: string): T {
+    const element = document.createElement(name);
+    return element as T;
   }
 
   init() {
@@ -173,27 +175,26 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  componentDidMount(oldProps: unknown) {}
+  componentDidMount(oldProps: Iprops) {}
 
-  componentDidUpdate(oldProps: unknown, newProps): boolean {
+  componentDidUpdate(oldProps: Iprops, newProps: Iprops): boolean {
     return true;
   }
 
-  render() { }
+  render():void | Node | string {}
 
   getContent() {
-    // return this._element.childNodes[0];
     return this._element;
   }
 
-  setProps = (nextProps) => {
+  setProps = (nextProps: Iprops) => {
     if (!nextProps) {
       return;
     }
     Object.assign(this.props, nextProps);
   };
 
-  compile(template, props) {
+  compile(template: string, props:Iprops): DocumentFragment {
     const propsAndStubs = { ...props };
 
     this._removeEvents();
@@ -205,19 +206,15 @@ export default class Block {
     const handlerBarTemplate = Handlebars.compile(template)(propsAndStubs);
     fragment.innerHTML = handlerBarTemplate;
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      stub.replaceWith(child.getContent());
+      const stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      if (stub instanceof HTMLElement) {
+        stub.replaceWith(child.getContent());
+      }
     });
 
     this._addEvents();
     return fragment.content;
   }
-
-  show() {
-    this.getContent().style.display = 'block';
-  }
-
-  hide() {
-    this.getContent().style.display = 'none';
-  }
 }
+
+export default Block;

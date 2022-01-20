@@ -6,6 +6,7 @@ import LoginForm from './components/forms/login';
 type IProps = {
   loginInput: HTMLInputElement,
   passwordInput: HTMLInputElement,
+  events?: Record<string, () => void>,
 }
 
 class Login extends Block {
@@ -21,7 +22,11 @@ class Login extends Block {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'login';
-    this.children.form = new LoginForm({});
+    this.children.form = new LoginForm({
+      handleSubmit: (formData) => {
+        console.log(formData);
+      },
+    });
   }
 
   render() {

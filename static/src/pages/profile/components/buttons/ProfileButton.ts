@@ -28,7 +28,7 @@ class ProfileButton extends Block {
     this.setWrapperStyles('profile__navigation-buttom_type_alert');
   }
 
-  componentDidUpdate(oldProps, newProps) {
+  componentDidUpdate() {
     return true;
   }
 

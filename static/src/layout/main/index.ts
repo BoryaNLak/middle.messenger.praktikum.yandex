@@ -6,19 +6,20 @@ import NotFoundPage from '../../pages/error/notFound';
 import ServerNotResponPage from '../../pages/error/serverNotRespond';
 import ChatPage from '../../pages/chat';
 import ProfilePage from '../../pages/profile';
+import Block from '../../utils/Block';
 
 const loginPage = LoginPage();
 const signupPage = SignupPage();
 const notFoundPage = NotFoundPage();
 const serverNotResponPage = ServerNotResponPage();
-// const chatPage = ChatPage();
+const chatPage = ChatPage();
 const profilePage = ProfilePage();
 
-const pages = {
+const pages:Record<string, Block> = {
   '/profile': profilePage,
-  // '/chat': chatPage,
+  '/chat': chatPage,
   '/login': loginPage,
-  // '/': loginPage,
+  '/': loginPage,
   '/signup': signupPage,
   '/notfound': notFoundPage,
   '/servererror': serverNotResponPage,
@@ -26,7 +27,11 @@ const pages = {
 
 const router = () => {
   const currentRoute = window.location.pathname;
-  return pages[currentRoute];
+  const page = pages[currentRoute];
+  if (page) {
+    return page;
+  }
+  return notFoundPage;
 };
 
 function MainLayout(): Main {

@@ -1,12 +1,13 @@
 import './serverNotRespond.css';
 import ServerNotRespond from './serverNotRespond';
-import { dataNotFoundError } from '../../../utils/constants';
+import { dataServerError } from '../../../utils/constants';
 
 export default function ServerNotResponPage(): ServerNotRespond {
   const notFound = new ServerNotRespond(
     {
-      number: dataNotFoundError.number,
-      message: dataNotFoundError.message,
+      number: dataServerError.number,
+      message: dataServerError.message,
+      link: dataServerError.link,
     },
   );
   return notFound;

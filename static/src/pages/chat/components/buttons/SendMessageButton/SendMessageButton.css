@@ -1,0 +1,12 @@
+.chat__send_message-button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background-image: url(../../../../../../icons/left_arrow.png);
+  transform: rotate(180deg);
+  background-repeat: no-repeat;
+  background-position: center;
+  outline: 0;
+  cursor: pointer;
+}

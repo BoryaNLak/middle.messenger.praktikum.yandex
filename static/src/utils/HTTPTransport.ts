@@ -5,7 +5,7 @@ const METHODS = {
   DELETE: 'DELETE',
 };
 
-function queryStringify(data) {
+function queryStringify(data: any) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -17,12 +17,11 @@ function queryStringify(data) {
 
 type IOptions = {
   timeout: number,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Document | XMLHttpRequestBodyInit | null,
 };
 
 type IRequestOption = {
-  headers?: object,
+  headers?: Record<string, string>,
   method: string,
   data?: Document | XMLHttpRequestBodyInit | null,
 }

@@ -3,8 +3,9 @@ import Block from '../../utils/Block';
 import MessageForm from './components/messageForm';
 import FormStore from '../../utils/FormStore';
 import SendMessageButton from './components/buttons/SendMessageButton';
-import ContartRender from './components/contact';
-import MessageRender from './components/message';
+import Message from './components/message';
+import Contact from './components/contact';
+import { contactsData, messagesData } from '../../utils/constants';
 
 // import Сontact from './components/contact';
 // import Message from './components/message';
@@ -93,8 +94,6 @@ const FORM_NAME = 'messageForm';
 const localStore = FormStore.initFormStore(FORM_NAME);
 
 type IProps = {
-  contacts: HTMLElement,
-  messages: HTMLElement,
   events?: Record<string, () => void>
 }
 
@@ -104,6 +103,8 @@ class Chat extends Block {
   children: {
     messageForm: MessageForm,
     sendButton: SendMessageButton,
+    messages: Message,
+    contacts: Contact,
   };
 
   constructor(props: IProps) {
@@ -124,9 +125,15 @@ class Chat extends Block {
         },
       },
     });
+    this.children.messages = new Message({
+      ...messagesData[0],
+    });
+    this.children.contacts = new Contact({
+      ...contactsData[0],
+    });
   }
 
-  componentDidUpdate(oldProps, newProps): boolean {
+  componentDidUpdate(): boolean {
     return true;
   }
 
@@ -135,6 +142,8 @@ class Chat extends Block {
       ...this.props,
       messageForm: this.children.messageForm,
       sendButton: this.children.sendButton,
+      messages: this.children.messages,
+      contacts: this.children.contacts,
     });
   }
 }

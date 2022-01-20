@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 
 const LOGIN_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{0,})(?=.*[a-zA-Z_-]).*$';
-// const EMAIL_PATTERN = '^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$';
 const EMAIL_PATTERN = '(?=^[^\s@]+@[^\s@]+\.[^\s@]).*$';
 const PASSWORD_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{1,})(?=.*[A-Z]{1,})(?=.*).*$';
 const NAME_PATTERN = '(^[A-ZА-ЯЁ]{1})([a-zа-яё-]{1,})$';

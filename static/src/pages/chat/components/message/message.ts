@@ -18,6 +18,10 @@ class Message extends Block {
     this._id = makeUUID();
   }
 
+  componentDidUpdate(): boolean {
+    return true;
+  }
+
   render() {
     return this.compile(tmpl, this.props);
   }

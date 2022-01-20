@@ -1,29 +1,64 @@
 /* eslint-disable no-useless-escape */
 
 const LOGIN_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{0,})(?=.*[a-zA-Z_-]).*$';
-const EMAIL_PATTERN = '(?=^[^\s@]+@[^\s@]+\.[^\s@]).*$';
-const PASSWORD_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{1,})(?=.*[A-Z]{1,})(?=.*).*$';
+const EMAIL_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+const PASSWORD_PATTERN = '(?=^.{8,40}$)(?=.*[0-9]{1,})(?=.*[A-Z]{1,})(?=.*).*$';
 const NAME_PATTERN = '(^[A-ZА-ЯЁ]{1})([a-zа-яё-]{1,})$';
 const PHONE_PATTERN = '(?=^.{10,15}$)(?=^.[+]{0,1}).*$';
 
 export const inputsDataProfile = [
   {
-    label: 'Почта', error_message: 'Неверная почта', name: 'email', id: 'profile_email', type: 'text', value: 'pochta@yandex.ru',
+    label: 'Почта',
+    error_message: 'Неверная почта',
+    name: 'email',
+    id: 'profile_email',
+    type: 'text',
+    value: 'pochta@yandex.ru',
+    pattern: EMAIL_PATTERN,
   },
   {
-    label: 'Логин', error_message: 'Неверный логин', name: 'login', id: 'profile_login', type: 'text', value: 'ivanivanov',
+    label: 'Логин',
+    error_message: 'Неверный логин',
+    name: 'login',
+    id: 'profile_login',
+    type: 'text',
+    value: 'ivanivanov',
+    pattern: LOGIN_PATTERN,
   },
   {
-    label: 'Фамилия', error_message: 'Неверная фамилия', name: 'first_name', id: 'profile_first_name', type: 'text', value: 'Иван',
+    label: 'Фамилия',
+    error_message: 'Неверная фамилия',
+    name: 'first_name',
+    id: 'profile_first_name',
+    type: 'text',
+    value: 'Иван',
+    pattern: NAME_PATTERN,
   },
   {
-    label: 'Имя', error_message: 'Неверное имя', name: 'second_name', id: 'profile_second_name', type: 'text', value: 'Иванов',
+    label: 'Имя',
+    error_message: 'Неверное имя',
+    name: 'second_name',
+    id: 'profile_second_name',
+    type: 'text',
+    value: 'Иванов',
+    pattern: NAME_PATTERN,
   },
   {
-    label: 'Имя в чате', error_message: 'Неверное имя', name: 'chat_name', id: 'profile_chat_name', type: 'text', value: 'Иван',
+    label: 'Имя в чате',
+    error_message: 'Неверное имя',
+    name: 'chat_name',
+    id: 'profile_chat_name',
+    type: 'text',
+    value: 'Иван',
   },
   {
-    label: 'Номер телефона', error_message: 'Неверный номер', name: 'phone', id: 'profile_phone', type: 'tel', value: '+7 (909) 967 30 30',
+    label: 'Номер телефона',
+    error_message: 'Неверный номер',
+    name: 'phone',
+    id: 'profile_phone',
+    type: 'tel',
+    value: '+79999995588',
+    pattern: PHONE_PATTERN,
   },
 ];
 
@@ -34,7 +69,7 @@ export const inputsDataChangePassword = [
     name: 'password_old',
     id: 'profile_old_password',
     type: 'password',
-    value: '12345678',
+    value: '12345678ASDdsad',
     isDisable: false,
     required: 'true',
     pattern: PASSWORD_PATTERN,

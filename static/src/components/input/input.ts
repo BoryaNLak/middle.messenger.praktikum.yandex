@@ -3,6 +3,7 @@
 import { v4 as makeUUID } from 'uuid';
 import tmpl from './input.tml';
 import Block from '../../utils/Block';
+import ErrorMessage from './errorMessage';
 
 export type IProps = {
   value?: string
@@ -45,17 +46,58 @@ class Input extends Block {
     this._BASE_ERROR_MESSAGE = 'Пожалуйста, заполните поле';
   }
 
+  _setErrorMessage(errorMessage: string) {
+    const error = new ErrorMessage({
+      text: errorMessage,
+      style: this.props.styles ? this.props.styles.error_styles : '',
+    });
+    const content = this.getContent();
+    const errorDOM = content.querySelector('.error');
+    if (errorDOM) {
+      errorDOM.replaceWith(error.getContent());
+    } else {
+      this.getContent().append(error.getContent());
+    }
+  }
+
+  _removeErrorMessage() {
+    const content = this.getContent();
+    const errorDOM = content.querySelector('.error');
+    errorDOM?.replaceWith('');
+  }
+
+  _getValidationMessage():string {
+    const input = this._getInput();
+    if (input) {
+      return input.validationMessage;
+    }
+    return '';
+  }
+
+  _inputValidation():void {
+    const isValid = this._isValidInput();
+    const message = this._getValidationMessage();
+    if (!isValid) {
+      this._setErrorMessage(message);
+      this._setInvalidStyle();
+    } else {
+      this._removeErrorMessage();
+      this._setValidStyle();
+    }
+  }
+
   _setBaseEvents() {
     this.setProps({
       events: {
         input: () => {
-          this.inputValidation();
+          this._inputValidation();
           if (this.props.onInput) {
-            this.props.onInput(this.getValue());
+            const value = this.getValue();
+            this.props.onInput(value);
           }
         },
         focusout: () => {
-          this.touchValidate();
+          this._inputValidation();
         },
       },
     });
@@ -69,12 +111,34 @@ class Input extends Block {
     return true;
   }
 
-  _getInvalidMessage() {
+  _setInvalidStyle():void {
     const input = this._getInput();
     if (input) {
-      return input.validationMessage;
+      input.classList.add('form-group__input_invalid');
+      this._removeValidStyle();
     }
-    return '';
+  }
+
+  _removeInvalidStyle():void {
+    const input = this._getInput();
+    if (input) {
+      input.classList.remove('form-group__input_invalid');
+    }
+  }
+
+  _setValidStyle():void {
+    const input = this._getInput();
+    if (input) {
+      input.classList.add('form-group__input_valid');
+      this._removeInvalidStyle();
+    }
+  }
+
+  _removeValidStyle():void {
+    const input = this._getInput();
+    if (input) {
+      input.classList.remove('form-group__input_valid');
+    }
   }
 
   getValue() {
@@ -85,22 +149,6 @@ class Input extends Block {
     return '';
   }
 
-  _isValidDefine() {
-    if (this.props.isValid === undefined) {
-      return false;
-    }
-    return true;
-  }
-
-  _setCursor() {
-    const input = this._getInput();
-    if (input) {
-      input.focus();
-      input.selectionStart = input.value.length;
-      input.selectionEnd = input.value.length;
-    }
-  }
-
   _getInput(): HTMLInputElement | undefined {
     const input = this.getContent().querySelector('input');
     if (input instanceof HTMLElement) {
@@ -109,41 +157,16 @@ class Input extends Block {
     return undefined;
   }
 
-  _setInputProperty(input: HTMLInputElement | undefined, property: string, value: string): void {
-    if (input) {
-      input.setAttribute(property, value);
-    }
-  }
-
-  inputValidation() {
-    const value = this.getValue();
-    const validationMessage = this._getInvalidMessage();
-    const isValid = this._isValidInput();
-    const error_message = (isValid ? validationMessage : validationMessage || this._BASE_ERROR_MESSAGE);
-    this.setProps({ isValid, error_message });
-    this._setInputProperty(this._getInput(), 'value', value);
-    this._setCursor();
-  }
-
-  touchValidate() {
-    const value = this.getValue();
-    const isValidDefine = this._isValidDefine();
-    const isValid = isValidDefine ? this.props.isValid : false;
-    const error_message = isValid ? '' : this._BASE_ERROR_MESSAGE;
-    this.setProps({ isValid, error_message });
-    this._setInputProperty(this._getInput(), 'value', value);
-  }
-
   validate(isFormValid = true, errorMessage: string) {
     if (!isFormValid) {
-      this.setProps({ isValid: false, error_message: errorMessage });
+      this._setErrorMessage(errorMessage);
       return isFormValid;
     }
-    const isValidDefine = this._isValidDefine();
-    if (!isValidDefine) {
-      this.setProps({ isValid: false });
+    const isValid = this._isValidInput();
+    const message = this._getValidationMessage();
+    if (!isValid) {
+      this._setErrorMessage(message || this._BASE_ERROR_MESSAGE);
     }
-    const { isValid } = this.props;
     return isValid;
   }
 
@@ -155,13 +178,15 @@ class Input extends Block {
     return '';
   }
 
-  componentDidUpdate(): boolean {
+  componentDidUpdate(oldProp: Record<string, any>, newProp: Record<string, any>): boolean {
+    if ('isValid' in oldProp || 'isValid' in newProp) {
+      return false;
+    }
     return true;
   }
 
   render() {
-    const isValidDefine = this._isValidDefine();
-    return this.compile(tmpl, { ...this.props, isValid: isValidDefine ? this._isValidInput() : true });
+    return this.compile(tmpl, { ...this.props });
   }
 }
 

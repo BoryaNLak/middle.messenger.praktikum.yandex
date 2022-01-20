@@ -61,6 +61,7 @@ class Profile extends Block {
           console.log('click by change data');
           this.setEditMainForm();
           this.hideMenuButtons();
+          this.children.profileNavigationButton.redefineEvent('click', this.goToProfile);
         },
       },
       text: this.props.profileDataButtonText,

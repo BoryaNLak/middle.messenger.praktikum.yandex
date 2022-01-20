@@ -1,6 +1,6 @@
 .form-group_type_profile {
   border-bottom: 1px solid #EAEAEA;
-  padding: 10px 0;
+  padding: 7px 0;
 }
 
 .form-group__label_type_profile {
@@ -25,9 +25,14 @@
   text-align: right;
   border: 0;
   margin: 0;
-  padding: 0; 
+  padding: 3px 5px 3px;
   outline: 0;
   width: 100%;
+  border-radius: 10px;
+}
+
+.form-group__input_type_profile:disabled {
+  background-color: transparent;
 }
 
 .form-group__error_type_profile {
@@ -35,6 +40,6 @@
   font-family: inherit;
   color: inherit;
   margin: 0;
-  padding: 0;  
+  padding: 0;
   width: 100%;
 }

@@ -6,7 +6,9 @@ const tmpl = `
       class="{{ styles.input_styles }}"
       value="{{{ value }}}"
       name="{{ name }}"
-      placeholder="{{ placeholder }}"
+      {{#if placeholder }}
+        placeholder="{{ placeholder }}"
+      {{/if}}
       {{#if isDisable }}
         disabled='true'
       {{/if}}
@@ -29,10 +31,6 @@ const tmpl = `
         pattern="{{ pattern }}"
       {{/if}}
       />
-    {{#if isValid }}
-    {{else }}
-      <span class="{{ styles.error_styles }}">{{ error_message }}</span>
-    {{/if}}
 `.trim();
 
 export default tmpl;

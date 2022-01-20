@@ -3,7 +3,6 @@
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
-type Ievents = Record<string, () => void>;
 type Iprops = Record<string, any>;
 type Ichildren = Record<string, Block | Array<Block>>;
 

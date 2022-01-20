@@ -178,7 +178,7 @@ class Input extends Block {
     return '';
   }
 
-  componentDidUpdate(oldProp: Record<string, any>, newProp: Record<string, any>): boolean {
+  componentDidUpdate(oldProp: Record<string, string | Block>, newProp: Record<string, string | Block>): boolean {
     if ('isValid' in oldProp || 'isValid' in newProp) {
       return false;
     }

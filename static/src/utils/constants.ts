@@ -170,6 +170,14 @@ export const contactsData = [
     date: '12.05.2020',
     unread_messages: '999',
   },
+  {
+    photo: `https://hips.hearstapps.com/hmg-prod.s3.
+            amazonaws.com/images/shrek-forever-after-1587549453.jpg?crop=0.676xw:0.901xh;0.0969xw,0&resize=980:*`,
+    name: 'Кирилл',
+    last_message: 'Последнее сообщение',
+    date: '13.07.2020',
+    unread_messages: '2',
+  },
 ];
 
 export const messagesData = [

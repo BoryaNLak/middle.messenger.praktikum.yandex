@@ -18,18 +18,19 @@ const tmpl = `
           <img src="" class="chat__current-user-image" alt="current_user"/>
           <p class="chat__current-user-name">Иван</p>
         </div>
-        <button type="button" class="chat__current-user-menu"></button>
+        {{{ userMenuButton }}}
       </div>
+      {{{ dropdownUserMenu }}}
     </div>
     <div class="chat__block chat__block_type_messages">
       {{{ messages }}}
     </div>
     <div class="chat__block chat__block_type_input-message">
+      {{{ dropdownFormMenu }}}
       <div class="chat__create-message">
-        <button type="button" class="chat__attach-button"></button>
+        {{{ attachButton }}}
         {{{ messageForm }}}
         {{{ sendButton }}}
-        {{!-- <button type="button" class="chat__send_message-button"></button> --}}
       </div>
     </div>
   </div>

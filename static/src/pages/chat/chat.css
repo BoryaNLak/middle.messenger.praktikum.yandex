@@ -186,32 +186,6 @@
   margin:  0 0 0 10px;
 }
 
-.chat__current-user-menu {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: 0;
-  outline: 0;
-  background-image: url(../../../icons/three_points.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.chat__current-user-menu:hover {
-  opacity: 0.8;
-  background-color: #F5F5F5;
-}
-
-.chat__current-user-menu:active {
-  background-color: #F5F5F5;
-}
-
-.chat__current-user-menu_active {
-  background-color: #F5F5F5;
-}
-
 .chat__create-message {
   width: 100%;
   border-top: 1px solid #EAEAEA;
@@ -219,20 +193,6 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 10px;
-}
-
-.chat__attach-button {
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 50%;
-  background-image: url(../../../icons/paperclip.png);
-  transform: rotate(180);
-  background-repeat: no-repeat;
-  background-position: center;
-  outline: 0;
-  background-color: transparent;
-  cursor: pointer;
 }
 
 .chat__attach-buttonf:hover{

@@ -1,6 +1,4 @@
 import './dropdownMenu.css';
-import { render } from './dropdownMenu';
+import DropdownMenu from './dropdownMenu';
 
-export default function DropdownMenu(props) {
-  return render(props);
-}
+export default DropdownMenu;

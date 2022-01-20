@@ -16,6 +16,7 @@ class Message extends Block {
     super('div', props);
     this.props = props;
     this._id = makeUUID();
+    this.wrapperStyles = 'message';
   }
 
   componentDidUpdate(): boolean {

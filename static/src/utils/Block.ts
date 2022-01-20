@@ -5,6 +5,7 @@ import EventBus from './EventBus';
 
 type Ievents = Record<string, () => void>;
 type Iprops = Record<string, any>;
+type Ichildren = Record<string, Block | Array<Block>>;
 
 class Block {
   static EVENTS = {
@@ -18,7 +19,7 @@ class Block {
 
   props: Iprops;
 
-  children: Record<string, Block>;
+  children: Ichildren;
 
   eventBus: () => EventBus;
 
@@ -77,7 +78,13 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     Object.values(this.children).forEach((child) => {
       if (child) {
-        child.dispatchComponentDidMount();
+        if (Array.isArray(child)) {
+          child.forEach((item) => {
+            item.dispatchComponentDidMount();
+          });
+        } else {
+          child.dispatchComponentDidMount();
+        }
       }
     });
   }
@@ -126,13 +133,17 @@ class Block {
     });
   }
 
-  _getChildren(propsAndChildren: Record<string, string | Block>) {
-    const children: Record<string, Block> = {};
+  _getChildren(propsAndChildren: Record<string, boolean |string | Block | Array<Block>>) {
+    const children: Ichildren = {};
     const props: Record<string, string | boolean> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
+      } else if (Array.isArray(value)) {
+        if (value.every((item) => (item instanceof Block))) {
+          children[key] = value;
+        }
       } else {
         props[key] = value;
       }
@@ -199,16 +210,38 @@ class Block {
 
     this._removeEvents();
     Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+      if (Array.isArray(child)) {
+        propsAndStubs[key] = `<div data-id="${child[0]._id}"></div>`;
+      } else {
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+      }
     });
     const fragment = <HTMLTemplateElement> this._createDocumentElement('template');
 
     const handlerBarTemplate = Handlebars.compile(template)(propsAndStubs);
     fragment.innerHTML = handlerBarTemplate;
     Object.values(this.children).forEach((child) => {
-      const stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      if (stub instanceof HTMLElement) {
-        stub.replaceWith(child.getContent());
+      if (Array.isArray(child)) {
+        let stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child[0]._id}"]`);
+        child.forEach((item, index) => {
+          if (index === 0) {
+            const content = item.getContent();
+            if (stub instanceof HTMLElement) {
+              stub.replaceWith(content);
+              stub = content;
+            }
+          } else {
+            const content = item.getContent();
+            if (stub instanceof HTMLElement) {
+              stub.after(content);
+            }
+          }
+        });
+      } else {
+        const stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        if (stub instanceof HTMLElement) {
+          stub.replaceWith(child.getContent());
+        }
       }
     });
 

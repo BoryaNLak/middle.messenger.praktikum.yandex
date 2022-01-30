@@ -1,0 +1,178 @@
+.profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__window {
+  width: 33%;
+}
+
+.profile__photo-part {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__photo {
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  background-color: #EFEFEF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../../../static/icons/default_image.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+  cursor: pointer;
+}
+.profile__photo:hover {
+  opacity: 0.8;
+}
+
+.profile__form-part {
+
+}
+
+.profile__header {
+  color: inherit;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.profile__form {
+  margin: 60px 0;
+}
+
+.profile__fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.profile__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.profile__links_hidden {
+  display: none;
+}
+
+.profile__link {
+  text-decoration: none;
+  color: #3369F3;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #EAEAEA;
+  width: 100%;
+}
+
+.profile__link:hover {
+  opacity: 0.8;
+}
+
+.profile__link:last-child {
+  border-bottom: 0;
+}
+
+.profile__link_alert {
+  color: #FF0000;
+}
+
+.profile__navigation-buttom {
+  border: 0;
+  outline: 0;
+  color: #3369F3;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #EAEAEA;
+  width: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  text-align: left;
+}
+
+.profile__navigation-buttom_hidden {
+  display: none;
+}
+
+.profile__navigation-buttom_type_alert {
+  color: #FF0000;
+}
+
+.profile__save-buttom {
+  width: 70%;
+  margin: auto;
+  margin-top: 40px;
+  padding: 12px 0;
+  border-radius: 8px;
+  background-color: #3369F3;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  text-align: center;
+  outline: 0;
+  border: 0;
+  display: block;
+  cursor: pointer;
+}
+
+.profile__save-buttom_show{
+  display: block;
+}
+
+.profile__save-buttom:hover {
+  opacity: 0.8;
+}
+
+.profile__buttom:hover {
+  opacity: 0.8;
+}
+
+.profile__button-back {
+  background-image: url(../../../static/icons/left_arrow.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 5%;
+  background-color: #FBFBFB;
+  border: 0;
+  outline: 0;
+  border-right: 1px solid #EAEAEA;
+  cursor: pointer;
+}
+
+.profile__link-back:hover {
+  opacity: 0.8;
+}
+
+
+

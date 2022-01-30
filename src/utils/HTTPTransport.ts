@@ -5,8 +5,6 @@ const METHODS = {
   DELETE: 'DELETE',
 };
 
-type TData = Record<string, unknown> | FormData | string;
-
 const isObjectData = (data: unknown, isGet: boolean): data is Record<string, unknown> => isGet && !!data;
 
 function queryStringify(data: Record<string, unknown>): string {
@@ -48,10 +46,12 @@ class HTTPTransport {
   }
 
   request = (url: string, options: IRequestOption, timeout = 0) => {
-    const { headers = {
-      "Content-Type": "application/json"
-    },
-    method, data } = options;
+    const {
+      headers = {
+        'Content-Type': 'application/json',
+      },
+      method, data,
+    } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {

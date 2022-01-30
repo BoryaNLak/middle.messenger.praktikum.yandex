@@ -5,9 +5,11 @@ const METHODS = {
   DELETE: 'DELETE',
 };
 
-type IData = any;
+type TData = Record<string, unknown> | FormData | string;
 
-function queryStringify(data: IData): string {
+const isObjectData = (data: unknown, isGet: boolean): data is Record<string, unknown> => isGet && !!data;
+
+function queryStringify(data: Record<string, unknown>): string {
   if (typeof data !== 'object' || !data) {
     throw new Error('Data must be object');
   }
@@ -62,7 +64,7 @@ class HTTPTransport {
 
       xhr.open(
         method,
-        isGet && !!data
+        isObjectData(data, isGet)
           ? `${url}${queryStringify(data)}`
           : url,
       );
@@ -74,7 +76,7 @@ class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 400) {
           resolve(xhr);
-        } else  {
+        } else {
           reject(xhr);
         }
       };

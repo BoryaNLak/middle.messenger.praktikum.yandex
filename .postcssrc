@@ -1,0 +1,8 @@
+{
+	"modules": false,
+	"plugins": {
+		 	"postcss-import": true,
+    	"postcss-url": true,
+			"autoprefixer": true,
+	},
+}

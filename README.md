@@ -22,4 +22,8 @@ npm run start
 
 Ссылка на **pull-request**
 
+<<<<<<< HEAD
 *https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/1*
+=======
+*https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/2*
+>>>>>>> sprint_2

@@ -1,0 +1,16 @@
+.message-label {
+  display: none;
+}
+
+.message-input {
+  width: 100%;
+  border: 0;
+  background-color: #EFEFEF;
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+
+.message-error {
+  display: none;
+}

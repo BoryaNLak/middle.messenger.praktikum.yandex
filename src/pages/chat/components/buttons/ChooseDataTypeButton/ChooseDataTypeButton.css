@@ -1,0 +1,13 @@
+.chat__attach-button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background-image: url(../../../../../../static/icons/paperclip.svg);
+  transform: rotate(180);
+  background-repeat: no-repeat;
+  background-position: center;
+  outline: 0;
+  background-color: transparent;
+  cursor: pointer;
+}

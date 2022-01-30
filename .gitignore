@@ -10,6 +10,7 @@
 /build
 /dist
 /.parcel-cache
+/node_modules
 
 # misc
 .DS_Store
@@ -22,6 +23,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 <<<<<<< HEAD
+<<<<<<< HEAD
 node_modules
 =======
 >>>>>>> sprint_2
+=======
+
+
+
+>>>>>>> b05f4d1f859cd2ee5e439e07551db2b6ddcd5103

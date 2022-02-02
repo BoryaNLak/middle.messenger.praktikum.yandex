@@ -5,6 +5,8 @@ import MainForm from './components/forms/mainForm';
 import EditPasswordForm from './components/forms/editPasswordForm';
 import ProfileButton from './components/buttons/ProfileButton';
 import ProfileNavigationButton from './components/buttons/ProfileNavigationButton';
+import ProfilePhoto from './components/profilePhoto';
+import PhotoModal from './components/photoModal';
 
 const LOGIN_PATH = '/login';
 
@@ -16,6 +18,7 @@ type IProps = {
   profileDataButtonText: string,
   passwordButtonText: string,
   exitButtonText: string,
+  photo: string,
   name: string,
   events?: Record<string, () => void>,
 }
@@ -33,6 +36,8 @@ class Profile extends Block {
     mainForm: MainForm,
     exitButton: ProfileButton,
     profileNavigationButton: ProfileNavigationButton,
+    profilePhoto: ProfilePhoto,
+    photoModal: PhotoModal,
   };
 
   goToChats: () => void;
@@ -93,6 +98,21 @@ class Profile extends Block {
       },
     });
 
+    this.children.profilePhoto = new ProfilePhoto({
+      photo: this.props.photo,
+      events: {
+        click: () => {
+          this.children.photoModal.show();
+        },
+      },
+    });
+
+    this.children.photoModal = new PhotoModal({
+      handle: (value: unknown) => {
+        console.log(value);
+      },
+    });
+
     this.children.exitButton.setAlertButton();
 
     this.goToChats = () => {
@@ -130,6 +150,8 @@ class Profile extends Block {
         profileNavigationButton: this.children.profileNavigationButton,
         name: this.props.name,
         form: this.children.form,
+        profilePhoto: this.children.profilePhoto,
+        photoModal: this.children.photoModal,
       },
     );
   }

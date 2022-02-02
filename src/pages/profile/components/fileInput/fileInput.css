@@ -1,0 +1,26 @@
+.label_type_file {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #3369F3;
+  cursor: pointer;
+}
+
+.input_type_file {
+  display: none;
+}
+
+.error_type_file {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0;
+  margin: 20px 0 0 0;
+  color: #FF2F2F;
+}

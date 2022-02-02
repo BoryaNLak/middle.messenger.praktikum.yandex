@@ -16,30 +16,6 @@
   align-items: center;
 }
 
-.profile__photo {
-  padding: 0;
-  margin: 0;
-  border-radius: 50%;
-  width: 130px;
-  height: 130px;
-  background-color: #EFEFEF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url(../../../static/icons/default_image.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  color: transparent;
-  cursor: pointer;
-}
-.profile__photo:hover {
-  opacity: 0.8;
-}
-
-.profile__form-part {
-
-}
-
 .profile__header {
   color: inherit;
   font-family: inherit;

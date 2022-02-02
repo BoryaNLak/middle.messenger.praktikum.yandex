@@ -13,7 +13,7 @@ const localStore = FormStore.initFormStore(FORM_NAME);
 
 type IProps = {
   events?: Record<string, () => void>,
-  handleSubmit: (formData: Record<string, string>) => void,
+  handleSubmit: (formData: Record<string, string | FileList>) => void,
   isEditable: boolean,
 }
 

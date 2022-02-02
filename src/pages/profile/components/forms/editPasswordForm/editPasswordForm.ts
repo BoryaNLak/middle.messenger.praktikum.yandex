@@ -11,7 +11,7 @@ const FORM_NAME = 'editPasswordForm';
 
 const localStore = FormStore.initFormStore(FORM_NAME);
 
-const validation = (values: Record<string, string>): Record<string, string> => {
+const validation = (values: Record<string, string | FileList>): Record<string, string> => {
   const errors: Record<string, string> = {};
   if (values[inputsDataChangePassword[1].name] !== values[inputsDataChangePassword[2].name]) {
     errors[inputsDataChangePassword[1].name] = inputsDataChangePassword[1].error_message;

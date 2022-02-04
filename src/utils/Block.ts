@@ -60,11 +60,16 @@ class Block {
 
   setWrapperStyles(classStyle = ''): void {
     this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`;
-    this.setWrapperAttribute('class', `${this.wrapperStyles}`);
+    this.setWrapperAttribute('class', `${this.wrapperStyles} ${classStyle}`);
   }
 
   removeStyles(classStyle = ''): void {
+    this.wrapperStyles = this.wrapperStyles.replace(classStyle, '').trim();
     this.getContent().classList.remove(classStyle);
+  }
+
+  toggleStyles(classStyle = ''): void {
+    this.getContent().classList.toggle(classStyle);
   }
 
   setWrapperAttribute(attribute:string, value:string): void {

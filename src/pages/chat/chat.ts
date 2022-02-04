@@ -92,6 +92,7 @@ class Chat extends Block {
   constructor(props: IProps) {
     super('section', props);
     this.wrapperStyles = 'chats';
+    this.resetStyleStateMessages = this.resetStyleStateMessages.bind(this);
     this.children.messageForm = new MessageForm({
       handleInput: (value) => {
         localStore.onInput('message', value);
@@ -127,6 +128,7 @@ class Chat extends Block {
 
     this.children.messages = messagesData.map((item) => (new Message({
       ...item,
+      handleReseteStyle: this.resetStyleStateMessages,
     })));
     this.children.contacts = contactsData.map((item) => (new Contact({
       ...item,
@@ -139,6 +141,12 @@ class Chat extends Block {
     this.children.dropdownUserMenu = new DropdownMenu({
       wrapperStyles: 'dropdown-menu_type_right dropdown-menu_type_bottom',
       dataItems: itemsDropdownTop,
+    });
+  }
+
+  resetStyleStateMessages() {
+    this.children.messages.forEach((message) => {
+      message.resetStyleState();
     });
   }
 

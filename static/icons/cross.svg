@@ -1,9 +1,9 @@
 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="22" height="22" fill="#E5E5E5"/>
+<rect width="22" height="22" />
 <g id="&#208;&#164;&#209;&#131;&#208;&#189;&#208;&#186;&#209;&#134;&#208;&#184;&#208;&#184; &#208;&#167;&#208;&#176;&#209;&#130;&#208;&#176;" clip-path="url(#clip0_0_1)">
-<rect width="1280" height="720" transform="translate(-1075 -118)" fill="white"/>
+<rect width="1280" height="720" transform="translate(-1075 -118)" />
 <g id="Rectangle 371" filter="url(#filter0_d_0_1)">
-<rect x="-15" y="-53" width="210" height="90" rx="12" fill="white"/>
+<rect x="-15" y="-53" width="210" height="90" rx="12" />
 </g>
 <circle id="Ellipse 33" cx="11" cy="11" r="10.25" stroke="#3369F3" stroke-width="1.5"/>
 <g id="Group 200">
@@ -22,7 +22,7 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
 </filter>
 <clipPath id="clip0_0_1">
-<rect width="1280" height="720" fill="white" transform="translate(-1075 -118)"/>
+<rect width="1280" height="720" transform="translate(-1075 -118)"/>
 </clipPath>
 </defs>
 </svg>

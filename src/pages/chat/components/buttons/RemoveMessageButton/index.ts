@@ -1,4 +1,4 @@
-import './ChooseDataTypeButton.css';
-import ChooseDataTypeButton from './ChooseDataTypeButton';
+import './RemoveMessageButton.css';
+import RemoveMessageButton from './RemoveMessageButton';
 
-export default ChooseDataTypeButton;
+export default RemoveMessageButton;

@@ -7,7 +7,7 @@ type IProps = {
   }
 }
 
-class ChooseDataTypeButton extends Block {
+class RemoveMessageButton extends Block {
   props: IProps;
 
   _id: string;
@@ -17,7 +17,7 @@ class ChooseDataTypeButton extends Block {
   constructor(props: IProps) {
     super('button', props);
     this._id = makeUUID();
-    this.wrapperStyles = 'chat__attach-button';
+    this.wrapperStyles = 'chat__menu-message-button';
     this.setWrapperAttribute('type', 'button');
   }
 
@@ -30,4 +30,4 @@ class ChooseDataTypeButton extends Block {
   }
 }
 
-export default ChooseDataTypeButton;
+export default RemoveMessageButton;

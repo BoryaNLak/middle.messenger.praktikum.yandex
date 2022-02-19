@@ -6,6 +6,14 @@ const PASSWORD_PATTERN = '(?=^.{8,40}$)(?=.*[0-9]{1,})(?=.*[A-Z]{1,})(?=.*).*$';
 const NAME_PATTERN = '(^[A-ZА-ЯЁ]{1})([a-zа-яё-]{1,})$';
 const PHONE_PATTERN = '(?=^.{10,15}$)(?=^.[+]{0,1}).*$';
 
+export const PATHS = {
+  LOGIN_PATH: '/',
+  SIGNUP_PATH: '/sign-up',
+  MESSENGER_PATH: '/messenger',
+  SETTINGS_PATH: '/settings',
+  OTHER_PATH: '/*',
+};
+
 export const inputsDataProfile = [
   {
     label: 'Почта',

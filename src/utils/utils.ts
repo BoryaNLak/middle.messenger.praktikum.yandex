@@ -2,6 +2,10 @@ type Indexed<T = unknown> = {
   [key in string]: T;
 };
 
+type IndexedClone<T = any> = {
+  [k in (string | symbol)]: T;
+ };
+
 type StringIndexed = Record<string, any>;
 
 type PlainObject<T = any> = {
@@ -127,8 +131,8 @@ function queryStringify(data: StringIndexed): string | never {
   }, '');
 }
 
-function cloneDeep<T extends object = object>(obj: T) {
-  return (function _cloneDeep(item: T): T | Date | Set<unknown> | Map<unknown, unknown> | object| T[] {
+function cloneDeep<T extends IndexedClone>(obj: T) {
+  return (function _cloneDeep(item: T): T | Date | Set<unknown> | Map<unknown, unknown> | object | T[] {
     // Handle:
     // * null
     // * undefined
@@ -144,13 +148,13 @@ function cloneDeep<T extends object = object>(obj: T) {
     // Handle:
     // * Date
     if (item instanceof Date) {
-      return new Date(item.valueOf());
+      return new Date((item as Date).valueOf());
     }
 
     // Handle:
     // * Array
     if (item instanceof Array) {
-      const copy = new Array();
+      const copy: ReturnType<typeof _cloneDeep>[] = [];
 
       item.forEach((_, i) => (copy[i] = _cloneDeep(item[i])));
 
@@ -180,11 +184,11 @@ function cloneDeep<T extends object = object>(obj: T) {
     // Handle:
     // * Object
     if (item instanceof Object) {
-      const copy: any = {};
+      const copy: Indexed = {};
 
       // Handle:
       // * Object.symbol
-      Object.getOwnPropertySymbols(item).forEach((s) => (copy[s] = _cloneDeep(item[s])));
+      Object.getOwnPropertySymbols(item).forEach((s) => (copy[s.toString()] = _cloneDeep(item[s.toString()])));
 
       // Handle:
       // * Object.name (other)

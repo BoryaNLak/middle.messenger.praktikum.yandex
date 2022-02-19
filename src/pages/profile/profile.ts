@@ -7,17 +7,18 @@ import ProfileButton from './components/buttons/ProfileButton';
 import ProfileNavigationButton from './components/buttons/ProfileNavigationButton';
 import ProfilePhoto from './components/profilePhoto';
 import PhotoModal from './components/photoModal';
+import Router from '../../utils/Router/Router';
+import { PATHS, userDataProfile } from '../../utils/constants';
 
-const LOGIN_PATH = '/login';
+const PROFILE_DATA_BUTTON_TEXT = 'Изменить данные';
+const PROFILE_PASSWORD_BUTTON_TEXT = 'Исменить пароль';
+const PROFILE_EXIT_BUTTON_TEXT = 'Выйти';
 
 function goTo(path:string):void {
-  document.location.href = path;
+  Router.go(path);
 }
 
 type IProps = {
-  profileDataButtonText: string,
-  passwordButtonText: string,
-  exitButtonText: string,
   photo: string,
   name: string,
   events?: Record<string, () => void>,
@@ -44,7 +45,7 @@ class Profile extends Block {
 
   goToProfile: () => void;
 
-  constructor(props: IProps) {
+  constructor(props = {}) {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'profile';
@@ -69,7 +70,7 @@ class Profile extends Block {
           this.children.profileNavigationButton.redefineEvent('click', this.goToProfile);
         },
       },
-      text: this.props.profileDataButtonText,
+      text: PROFILE_DATA_BUTTON_TEXT,
     });
     this.children.changePasswordButton = new ProfileButton({
       events: {
@@ -79,15 +80,15 @@ class Profile extends Block {
           this.children.profileNavigationButton.redefineEvent('click', this.goToProfile);
         },
       },
-      text: this.props.passwordButtonText,
+      text: PROFILE_PASSWORD_BUTTON_TEXT,
     });
     this.children.exitButton = new ProfileButton({
       events: {
         click: () => {
-          goTo(LOGIN_PATH);
+          goTo(PATHS.LOGIN_PATH);
         },
       },
-      text: this.props.exitButtonText,
+      text: PROFILE_EXIT_BUTTON_TEXT,
     });
 
     this.children.profileNavigationButton = new ProfileNavigationButton({
@@ -99,7 +100,7 @@ class Profile extends Block {
     });
 
     this.children.profilePhoto = new ProfilePhoto({
-      photo: this.props.photo,
+      photo: userDataProfile.photo,
       events: {
         click: () => {
           this.children.photoModal.show();
@@ -116,11 +117,11 @@ class Profile extends Block {
     this.children.exitButton.setAlertButton();
 
     this.goToChats = () => {
-      goTo('/chat');
+      goTo(PATHS.MESSENGER_PATH);
     };
 
     this.goToProfile = () => {
-      goTo('/profile');
+      goTo(PATHS.SETTINGS_PATH);
     };
   }
 
@@ -148,10 +149,11 @@ class Profile extends Block {
         changeProfileDataButton: this.children.changeProfileDataButton,
         changePasswordButton: this.children.changePasswordButton,
         profileNavigationButton: this.children.profileNavigationButton,
-        name: this.props.name,
+        // name: this.props.name,
         form: this.children.form,
         profilePhoto: this.children.profilePhoto,
         photoModal: this.children.photoModal,
+        ...userDataProfile,
       },
     );
   }

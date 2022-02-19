@@ -8,13 +8,14 @@ import UserMenuButton from './components/buttons/userMenuButton';
 import Message from './components/message';
 import Contact from './components/contact';
 import DropdownMenu from '../../components/dropdownMenu';
+import { Link } from '../../utils/Router';
 
 import fileImage from '../../../static/icons/file.svg';
 import locationImage from '../../../static/icons/location.svg';
 import photoVideoImage from '../../../static/icons/photo_video.svg';
 import plusImage from '../../../static/icons/plus.svg';
 import crossImage from '../../../static/icons/cross.svg';
-import { contactsData, messagesData } from '../../utils/constants';
+import { contactsData, messagesData, PATHS } from '../../utils/constants';
 
 const itemsDropdownForm = [
   {
@@ -85,14 +86,21 @@ class Chat extends Block {
     userMenuButton: UserMenuButton,
     dropdownFormMenu: DropdownMenu,
     dropdownUserMenu: DropdownMenu,
+    profileLink: Link,
     messages: Array<Message>,
     contacts: Array<Contact>,
   };
 
-  constructor(props: IProps) {
+  constructor(props = {}) {
     super('section', props);
     this.wrapperStyles = 'chats';
     this.resetStyleStateMessages = this.resetStyleStateMessages.bind(this);
+
+    this.children.profileLink = new Link({
+      text: 'Профиль',
+      to: PATHS.SETTINGS_PATH,
+      cssClass: 'chat__link chat__link_type_profile',
+    });
     this.children.messageForm = new MessageForm({
       handleInput: (value) => {
         localStore.onInput('message', value);
@@ -165,6 +173,7 @@ class Chat extends Block {
       attachButton: this.children.attachButton,
       userMenuButton: this.children.userMenuButton,
       dropdownUserMenu: this.children.dropdownUserMenu,
+      profileLink: this.children.profileLink,
     });
   }
 }

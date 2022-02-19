@@ -59,8 +59,8 @@ class Block {
   }
 
   setWrapperStyles(classStyle = ''): void {
-    this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`;
-    this.setWrapperAttribute('class', `${this.wrapperStyles} ${classStyle}`);
+    this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`.trim();
+    this.setWrapperAttribute('class', `${this.wrapperStyles} ${classStyle}`.trim());
   }
 
   removeStyles(classStyle = ''): void {
@@ -255,6 +255,14 @@ class Block {
 
     this._addEvents();
     return fragment.content;
+  }
+
+  show() {
+    this.getContent().style.display = 'block';
+  }
+
+  hide() {
+    this.getContent().style.display = 'none';
   }
 }
 

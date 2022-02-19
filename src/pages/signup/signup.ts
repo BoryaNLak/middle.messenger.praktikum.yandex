@@ -2,12 +2,15 @@ import { v4 as makeUUID } from 'uuid';
 import tmpl from './signup.tml';
 import Block from '../../utils/Block';
 import SignupForm from './components/forms/signup/signupForm';
+import { Link } from '../../utils/Router';
+import { PATHS } from '../../utils/constants';
 
 class Signup extends Block {
   _id: string;
 
   children: {
     form: SignupForm,
+    loginLink: Link,
   };
 
   constructor(props = {}) {
@@ -19,10 +22,18 @@ class Signup extends Block {
         console.log(formData);
       },
     });
+    this.children.loginLink = new Link({
+      text: 'Войти',
+      to: PATHS.LOGIN_PATH,
+      cssClass: 'signup__link',
+    });
   }
 
   render() {
-    return this.compile(tmpl, this.props);
+    return this.compile(tmpl, {
+      ...this.props,
+      loginLink: this.children.loginLink,
+    });
   }
 }
 

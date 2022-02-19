@@ -17,12 +17,12 @@
     "no-param-reassign": 0,
     "no-use-before-define": 0,
     "import/no-mutable-exports": 0,
+    "no-constructor-return": 0,
+    "no-return-assign": 0,
+    "no-restricted-syntax": 0,
+    "no-continue": 0,
+
     "no-console": "off",
-    "no-continue": "off",
-    "no-restricted-syntax": "off",
-    "no-return-assign": "off",
-    "@typescript-eslint/no-array-constructor": "off",
-    "@typescript-eslint/no-unused-vars": "off",
     "consistent-this": [2, "self",  "vm"],
     "import/extensions": [
       "error",

@@ -1,27 +1,24 @@
 import tmpl from './notFound.tml';
 import Block from '../../../utils/Block';
 import Window from '../components/window';
-
-type IProps = {
-  number: number,
-  message: string,
-  link: string,
-  events?: Record<string, () => void>
-}
+import { Link } from '../../../utils/Router';
+import { PATHS } from '../../../utils/constants';
 
 class NotFound extends Block {
-  props: IProps;
-
   children: {
     window: Window,
   };
 
-  constructor(props: IProps) {
-    super('div', props);
+  constructor() {
+    super('div', {});
     this.children.window = new Window({
-      number: this.props.number,
-      message: this.props.message,
-      link: this.props.link,
+      number: 404,
+      message: 'Не туда попали',
+      link: new Link({
+        text: 'Назад к чатам',
+        to: PATHS.MESSENGER_PATH,
+        cssClass: 'error-window__link',
+      }),
     });
   }
 

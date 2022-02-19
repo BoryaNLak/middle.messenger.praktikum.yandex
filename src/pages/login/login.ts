@@ -2,6 +2,8 @@ import { v4 as makeUUID } from 'uuid';
 import tmpl from './login.tml';
 import Block from '../../utils/Block';
 import LoginForm from './components/forms/login';
+import { Link } from '../../utils/Router';
+import { PATHS } from '../../utils/constants';
 
 type IProps = {
   loginInput: HTMLInputElement,
@@ -16,9 +18,10 @@ class Login extends Block {
 
   children: {
     form: LoginForm,
+    signupLink: Link,
   };
 
-  constructor(props: IProps) {
+  constructor(props = {}) {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'login';
@@ -27,10 +30,19 @@ class Login extends Block {
         console.log(formData);
       },
     });
+
+    this.children.signupLink = new Link({
+      text: 'Нет аккаунта?',
+      to: PATHS.SIGNUP_PATH,
+      cssClass: 'login__link',
+    });
   }
 
   render() {
-    return this.compile(tmpl, this.props);
+    return this.compile(tmpl, {
+      ...this.props,
+      signupLink: this.children.signupLink,
+    });
   }
 }
 

@@ -3,7 +3,17 @@ import tmpl from './login.tml';
 import Block from '../../utils/Block';
 import LoginForm from './components/forms/login';
 import { Link } from '../../utils/Router';
+import { authApi } from '../../utils/Api';
 import { PATHS } from '../../utils/constants';
+import { handleError } from '../../utils/Error/utils';
+
+function handleLogin(login: string, password: string) {
+  authApi.signin({ login, password })
+    .then((data) => {
+      console.log('You successfully login', data);
+    })
+    .catch(handleError);
+};
 
 type IProps = {
   loginInput: HTMLInputElement,
@@ -27,7 +37,8 @@ class Login extends Block {
     this.wrapperStyles = 'login';
     this.children.form = new LoginForm({
       handleSubmit: (formData) => {
-        console.log(formData);
+        console.log('submit by loginform', formData);
+        handleLogin(formData.login, formData.password);
       },
     });
 

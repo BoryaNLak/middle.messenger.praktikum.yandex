@@ -200,3 +200,9 @@ function cloneDeep<T extends IndexedClone>(obj: T) {
     throw new Error(`Unable to copy object: ${item}`);
   }(obj));
 }
+
+export {
+  queryStringify,
+  isEqual,
+  cloneDeep,
+};

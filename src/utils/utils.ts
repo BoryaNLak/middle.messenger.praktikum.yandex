@@ -205,4 +205,6 @@ export {
   queryStringify,
   isEqual,
   cloneDeep,
+  set,
+  trim,
 };

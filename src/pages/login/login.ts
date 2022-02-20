@@ -8,7 +8,7 @@ import { PATHS } from '../../utils/constants';
 import { handleError } from '../../utils/Error/utils';
 
 function handleLogin(login: string, password: string) {
-  authApi.signin({ login, password })
+  authApi.getUser({ login, password })
     .then((data) => {
       console.log('You successfully login', data);
     })

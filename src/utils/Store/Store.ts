@@ -13,6 +13,10 @@ export enum StoreEvents {
 class Store extends EventBus {
   private state: Indexed = {};
 
+  public init(path: string, value: unknown) {
+    set(this.state, path, value);
+  }
+
   public getState() {
     return this.state;
   }

@@ -141,16 +141,22 @@ class Block {
     });
   }
 
-  _getChildren(propsAndChildren: Record<string, boolean |string | Block | Array<Block>>) {
+  _arrayIsBlocks(arr: Block[] | Array<Record<string, string>>): arr is Block[] {
+    return (arr as Block[]).some((item) => (item instanceof Block));
+  }
+
+  _getChildren(propsAndChildren: Record<string, boolean | string | Block | Array<Block>>) {
     const children: Ichildren = {};
-    const props: Record<string, string | boolean> = {};
+    const props: Record<string, string | boolean | Array<Record<string, string>>> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       } else if (Array.isArray(value)) {
-        if (value.every((item) => (item instanceof Block))) {
+        if (this._arrayIsBlocks(value)) {
           children[key] = value;
+        } else {
+          props[key] = value;
         }
       } else {
         props[key] = value;
@@ -213,14 +219,13 @@ class Block {
     Object.assign(this.props, nextProps);
   };
 
-  compile(template: string, props:Iprops): DocumentFragment {
+  compile(template: string, props: Iprops): DocumentFragment {
     const propsAndStubs = { ...props };
-
     this._removeEvents();
     Object.entries(this.children).forEach(([key, child]) => {
-      if (Array.isArray(child)) {
+      if (Array.isArray(child) && child.length > 0) {
         propsAndStubs[key] = `<div data-id="${child[0]._id}"></div>`;
-      } else {
+      } else if (!Array.isArray(child)) {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
       }
     });
@@ -229,23 +234,20 @@ class Block {
     const handlerBarTemplate = Handlebars.compile(template)(propsAndStubs);
     fragment.innerHTML = handlerBarTemplate;
     Object.values(this.children).forEach((child) => {
-      if (Array.isArray(child)) {
+      if (Array.isArray(child) && child.length > 0) {
         let stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child[0]._id}"]`);
         child.forEach((item, index) => {
+          const content = item.getContent();
           if (index === 0) {
-            const content = item.getContent();
             if (stub instanceof HTMLElement) {
               stub.replaceWith(content);
               stub = content;
             }
-          } else {
-            const content = item.getContent();
-            if (stub instanceof HTMLElement) {
-              stub.after(content);
-            }
+          } else if (stub instanceof HTMLElement) {
+            stub.after(content);
           }
         });
-      } else {
+      } else if (!Array.isArray(child)) {
         const stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child._id}"]`);
         if (stub instanceof HTMLElement) {
           stub.replaceWith(child.getContent());

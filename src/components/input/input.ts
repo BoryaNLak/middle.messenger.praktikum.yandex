@@ -159,6 +159,10 @@ class Input extends Block {
     return '';
   }
 
+  clear() {
+    this.setProps({ value: '' });
+  }
+
   _getInput(): HTMLInputElement | undefined {
     const input = this.getContent().querySelector('input');
     if (input instanceof HTMLElement) {

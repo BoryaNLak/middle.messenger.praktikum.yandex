@@ -2,17 +2,13 @@ import { v4 as makeUUID } from 'uuid';
 import tmpl from './signup.tml';
 import Block from '../../utils/Block';
 import SignupForm from './components/forms/signup/signupForm';
-import { authApi } from '../../utils/Api';
 import { Link } from '../../utils/Router';
 import { PATHS } from '../../utils/constants';
-import { handleError } from '../../utils/Error/utils';
+import { UserController, TSignup, TStore } from '../../controllers';
+import { connect } from '../../utils/Store';
 
-function handleSignup(data) {
-  authApi.signup(data)
-    .then((data) => {
-      console.log('You successfully signup', data);
-    })
-    .catch(handleError);
+function mapStateToProps(state: TStore) {
+  return {};
 }
 
 class Signup extends Block {
@@ -28,9 +24,8 @@ class Signup extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'signup';
     this.children.form = new SignupForm({
-      handleSubmit: (formData) => {
-        console.log(formData);
-        handleSignup(formData);
+      handleSubmit: (formData: TSignup) => {
+        UserController.signup(formData);
       },
     });
     this.children.loginLink = new Link({
@@ -48,4 +43,4 @@ class Signup extends Block {
   }
 }
 
-export default Signup;
+export default connect(Signup, mapStateToProps);

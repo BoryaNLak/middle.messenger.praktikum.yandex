@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-escape */
 
-const LOGIN_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{0,})(?=.*[a-zA-Z_-]).*$';
+export const LOGIN_PATTERN = '(?=^.{3,20}$)(?=.*[0-9]{0,})(?=.*[a-zA-Z_-]).*$';
 const EMAIL_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
 const PASSWORD_PATTERN = '(?=^.{8,40}$)(?=.*[0-9]{1,})(?=.*[A-Z]{1,})(?=.*).*$';
 const NAME_PATTERN = '(^[A-ZА-ЯЁ]{1})([a-zа-яё-]{1,})$';
 const PHONE_PATTERN = '(?=^.{10,15}$)(?=^.[+]{0,1}).*$';
+export const CHAT_NAME_PATTERN = '^[А-яЁёA-z_ ]{3,30}$';
 
 export const PATHS = {
   LOGIN_PATH: '/',
@@ -15,6 +16,8 @@ export const PATHS = {
 };
 
 export const YANDEX_API_URL = 'https://ya-praktikum.tech/api/v2';
+export const YANDEX_RESOURCES = 'https://ya-praktikum.tech/api/v2/resources';
+export const YANDEX_SOCKET = 'wss://ya-praktikum.tech/ws';
 
 export const inputsDataProfile = [
   {
@@ -23,7 +26,6 @@ export const inputsDataProfile = [
     name: 'email',
     id: 'profile_email',
     type: 'text',
-    value: 'pochta@yandex.ru',
     pattern: EMAIL_PATTERN,
   },
   {
@@ -32,7 +34,6 @@ export const inputsDataProfile = [
     name: 'login',
     id: 'profile_login',
     type: 'text',
-    value: 'ivanivanov',
     pattern: LOGIN_PATTERN,
   },
   {
@@ -41,7 +42,6 @@ export const inputsDataProfile = [
     name: 'first_name',
     id: 'profile_first_name',
     type: 'text',
-    value: 'Иван',
     pattern: NAME_PATTERN,
   },
   {
@@ -50,16 +50,14 @@ export const inputsDataProfile = [
     name: 'second_name',
     id: 'profile_second_name',
     type: 'text',
-    value: 'Иванов',
     pattern: NAME_PATTERN,
   },
   {
     label: 'Имя в чате',
     error_message: 'Неверное имя',
-    name: 'chat_name',
-    id: 'profile_chat_name',
+    name: 'display_name',
+    id: 'profile_display_name',
     type: 'text',
-    value: 'Иван',
   },
   {
     label: 'Номер телефона',
@@ -67,7 +65,6 @@ export const inputsDataProfile = [
     name: 'phone',
     id: 'profile_phone',
     type: 'tel',
-    value: '+79999995588',
     pattern: PHONE_PATTERN,
   },
 ];
@@ -79,7 +76,6 @@ export const inputsDataChangePassword = [
     name: 'password_old',
     id: 'profile_old_password',
     type: 'password',
-    value: '12345678ASDdsad',
     isDisable: false,
     required: 'true',
     pattern: PASSWORD_PATTERN,

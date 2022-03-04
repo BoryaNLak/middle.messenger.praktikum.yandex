@@ -28,7 +28,6 @@ class MenuMessage extends Block {
 
   constructor(props: IData) {
     super('div', props);
-    this.props = props;
     this._id = makeUUID();
     this.wrapperStyles = 'message__menu-container';
     this.children.removeItem = new MenuItem({

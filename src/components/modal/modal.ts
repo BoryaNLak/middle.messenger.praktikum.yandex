@@ -18,7 +18,6 @@ class Modal extends Block {
 
   constructor(props: IData) {
     super('div', props);
-    this.props = props;
     this._id = makeUUID();
     this.tmpl = tmpl;
     this.wrapperStyles = 'modal';

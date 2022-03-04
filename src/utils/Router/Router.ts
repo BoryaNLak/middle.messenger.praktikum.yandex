@@ -1,8 +1,12 @@
 import Route from './Route';
 import Block from '../Block';
 
+type Indexed<U = unknown> = {
+  [key in string]: U;
+};
+
 type BlockConstructor<T extends Block> = {
-  new (): T,
+  new (props: Indexed): T,
 };
 
 class Router {

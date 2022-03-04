@@ -21,7 +21,8 @@ class FileInput extends InputElement {
       styles,
       type: 'file',
       label: 'Выбрать файл на компьютере',
-      name: 'file',
+      name: 'avatar',
+      accept: 'image/*',
     });
   }
 

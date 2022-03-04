@@ -41,6 +41,7 @@ class ChangePhotoForm extends Block {
     this.wrapperStyles = 'profile__change-photo-form';
     this.children.fileInput = new FileInput({
       id: 'changeProfilePhoto',
+      name: 'avatar',
       onInput: (value) => {
         localStore.onInput('file', value);
       },

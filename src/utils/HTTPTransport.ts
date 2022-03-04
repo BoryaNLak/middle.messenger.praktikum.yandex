@@ -12,15 +12,21 @@ const isObjectData = (data: unknown, isGet: boolean): data is Record<string, unk
 type IOptions = {
   timeout?: number,
   data?: Record<string, any>,
+  [k: string]: any,
 };
 
 type IRequestOption = {
   headers?: Record<string, string>,
   method: string,
+  credentials?: string,
   data?: Record<string, any>,
 }
 
 class HTTPTransport {
+  constructor() {
+    this.extractResponse = this.extractResponse.bind(this);
+  }
+
   get(url: string, options: IOptions) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   }
@@ -42,7 +48,7 @@ class HTTPTransport {
       headers = {
         'Content-Type': 'application/json',
       },
-      method, data,
+      method, data, credentials,
     } = options;
 
     return new Promise<XMLHttpRequest>((resolve, reject) => {
@@ -60,6 +66,9 @@ class HTTPTransport {
           ? `${url}${utils.queryStringify(data)}`
           : url,
       );
+      if (credentials === 'include') {
+        xhr.withCredentials = true;
+      }
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -81,18 +90,21 @@ class HTTPTransport {
 
       if (isGet || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
         xhr.send(JSON.stringify(data));
       }
     });
   }
 
-  checkResponse(res: XMLHttpRequest): Promise<XMLHttpRequest> {
-    if (res.status >= 200 && res.status < 300) {
-      return Promise.resolve(res);
+  extractResponse(response: XMLHttpRequest) {
+    try {
+      const json = JSON.parse(response.response);
+      return Promise.resolve(json);
+    } catch {
+      return Promise.resolve(response.response);
     }
-    // eslint-disable-next-line prefer-promise-reject-errors
-    return Promise.reject(res);
   }
 }
 

@@ -8,19 +8,43 @@ import ProfileNavigationButton from './components/buttons/ProfileNavigationButto
 import ProfilePhoto from './components/profilePhoto';
 import PhotoModal from './components/photoModal';
 import Router from '../../utils/Router/Router';
-import { PATHS, userDataProfile } from '../../utils/constants';
+import { PATHS, YANDEX_RESOURCES } from '../../utils/constants';
+import { UserController, TStore } from '../../controllers';
+import { TchangePassword, TchangeProfile } from '../../utils/Api';
+import { connect } from '../../utils/Store';
 
 const PROFILE_DATA_BUTTON_TEXT = 'Изменить данные';
 const PROFILE_PASSWORD_BUTTON_TEXT = 'Исменить пароль';
 const PROFILE_EXIT_BUTTON_TEXT = 'Выйти';
+
+function mapStateToProps(state: TStore) {
+  return {
+    userData: {
+      first_name: state.user.first_name,
+      second_name: state.user.second_name,
+      display_name: state.user.display_name,
+      login: state.user.login,
+      email: state.user.email,
+      phone: state.user.phone,
+    },
+    photo: state.user.avatar,
+  };
+}
 
 function goTo(path:string):void {
   Router.go(path);
 }
 
 type IProps = {
-  photo: string,
-  name: string,
+  photo: string | null,
+  userData: {
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
+    phone: string,
+  }
   events?: Record<string, () => void>,
 }
 
@@ -51,20 +75,22 @@ class Profile extends Block {
     this.wrapperStyles = 'profile';
     this.children.editForm = new EditPasswordForm({
       handleSubmit: (formData) => {
-        console.log(formData);
+        const data = { oldPassword: formData.oldPassword, newPassword: formData.newPassword } as TchangePassword;
+        UserController.changeUserPassword(data);
       },
     });
     this.children.mainForm = new MainForm({
       isEditable: false,
+      userData: this.props.userData,
       handleSubmit: (formData) => {
-        console.log(formData);
+        const data = { ...this.props.userData, ...formData } as TchangeProfile;
+        UserController.changeUserProfile(data);
       },
     });
     this.children.form = this.children.mainForm;
     this.children.changeProfileDataButton = new ProfileButton({
       events: {
         click: () => {
-          console.log('click by change data');
           this.setEditMainForm();
           this.hideMenuButtons();
           this.children.profileNavigationButton.redefineEvent('click', this.goToProfile);
@@ -85,7 +111,10 @@ class Profile extends Block {
     this.children.exitButton = new ProfileButton({
       events: {
         click: () => {
-          goTo(PATHS.LOGIN_PATH);
+          UserController.logout()
+            .then(() => {
+              goTo(PATHS.LOGIN_PATH);
+            });
         },
       },
       text: PROFILE_EXIT_BUTTON_TEXT,
@@ -100,7 +129,7 @@ class Profile extends Block {
     });
 
     this.children.profilePhoto = new ProfilePhoto({
-      photo: userDataProfile.photo,
+      photo: this.props.photo ? `${YANDEX_RESOURCES}${this.props.photo}` : '',
       events: {
         click: () => {
           this.children.photoModal.show();
@@ -109,8 +138,10 @@ class Profile extends Block {
     });
 
     this.children.photoModal = new PhotoModal({
-      handle: (value: unknown) => {
-        console.log(value);
+      handle: (value: {file: FileList}) => {
+        const data = new FormData();
+        data.append('avatar', value.file[0]);
+        UserController.changeAvatar(data);
       },
     });
 
@@ -149,14 +180,13 @@ class Profile extends Block {
         changeProfileDataButton: this.children.changeProfileDataButton,
         changePasswordButton: this.children.changePasswordButton,
         profileNavigationButton: this.children.profileNavigationButton,
-        // name: this.props.name,
+        name: this.props.userData.first_name,
         form: this.children.form,
         profilePhoto: this.children.profilePhoto,
         photoModal: this.children.photoModal,
-        ...userDataProfile,
       },
     );
   }
 }
 
-export default Profile;
+export default connect(Profile, mapStateToProps);

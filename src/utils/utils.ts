@@ -34,6 +34,8 @@ function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
         lhs[p] = rhs[p];
       }
     } catch (e) {
+      console.log('ERRRROROROROROROROOROROROOROROROOROROOROROROOROROROOROROROROOROROORROO');
+      console.log(lhs,rhs,p);
       lhs[p] = rhs[p];
     }
   }

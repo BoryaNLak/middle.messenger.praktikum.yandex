@@ -17,7 +17,6 @@ class MenuItem extends Block {
 
   constructor(props: IData) {
     super('li', props);
-    this.props = props;
     this._id = makeUUID();
     this.wrapperStyles = 'message__menu-item';
   }

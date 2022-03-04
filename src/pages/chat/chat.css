@@ -68,6 +68,16 @@
   left: 0;
 }
 
+.chat__top-pannel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
 .chat__link {
   text-decoration: none;
   padding: 0;
@@ -86,13 +96,20 @@
 
 .chat__link_type_profile {
   text-align: right;
-  width: 100%;
-  padding-bottom: 23px;
+  width: min-content;
 }
 
 .chat__link_type_profile::after {
   content: '\f105';
   font-family: FontAwesome;
+}
+
+.chat__wide-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .chat__input {

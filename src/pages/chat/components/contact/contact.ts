@@ -1,13 +1,17 @@
 import { v4 as makeUUID } from 'uuid';
 import tmpl from './contact.tml';
 import Block from '../../../../utils/Block';
+import { YANDEX_RESOURCES } from '../../../../utils/constants';
 
 type IData = {
-  photo: string,
-  name: string,
-  last_message: string,
-  date: string,
-  unread_messages: string,
+  avatar?: string,
+  title: string,
+  content?: string,
+  time?: string,
+  unread_count?: number,
+  events: {
+    click: () => void
+  }
 }
 
 class Contact extends Block {
@@ -17,7 +21,6 @@ class Contact extends Block {
 
   constructor(props: IData) {
     super('div', props);
-    this.props = props;
     this._id = makeUUID();
     this.wrapperStyles = 'contact';
   }
@@ -27,7 +30,10 @@ class Contact extends Block {
   }
 
   render() {
-    return this.compile(tmpl, this.props);
+    return this.compile(tmpl, {
+      ...this.props,
+      avatar: `${YANDEX_RESOURCES}${this.props.avatar}`,
+    });
   }
 }
 

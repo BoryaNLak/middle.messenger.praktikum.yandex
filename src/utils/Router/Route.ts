@@ -1,10 +1,14 @@
 import Block from '../Block';
 
+type Indexed<U = unknown> = {
+  [key in string]: U;
+};
+
 type Tprops = {
   rootQuery: string,
 }
 type BlockConstructor = {
-  new (): Block;
+  new (props: Indexed): Block;
 };
 
 function isEqual(lhs: string, rhs: string) {
@@ -57,7 +61,7 @@ class Route {
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass();
+      this._block = new this._blockClass({});
       render(this._props.rootQuery, this._block);
       return;
     }

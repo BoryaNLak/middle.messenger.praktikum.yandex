@@ -2,15 +2,14 @@ import { v4 as makeUUID } from 'uuid';
 import tmpl from './message.tml';
 import Block from '../../../../utils/Block';
 import MenuMessage from '../MenuMessage';
+import { Tmessage } from '../../../../controllers';
 
-type IData = {
-  text: string,
-  date: string,
+type TmessageComponent = Tmessage & {
   handleReseteStyle: () => void
 }
 
 class Message extends Block {
-  props: IData;
+  props: TmessageComponent;
 
   _id: string;
 
@@ -18,7 +17,7 @@ class Message extends Block {
     menuMessage: MenuMessage,
   };
 
-  constructor(props: IData) {
+  constructor(props: TmessageComponent) {
     super('div', props);
     this._id = makeUUID();
     this.wrapperStyles = 'message';

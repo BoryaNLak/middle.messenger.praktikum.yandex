@@ -14,6 +14,12 @@ class LocalSore {
     this._store[name] = value;
   }
 
+  resetStore() {
+    Object.keys(this._store).forEach((key) => {
+      this._store[key] = '';
+    });
+  }
+
   getData() {
     return this._store;
   }

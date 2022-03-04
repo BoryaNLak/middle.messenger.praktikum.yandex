@@ -46,7 +46,7 @@ class LoginForm extends Block {
       },
     });
     this.children.submit = new Submit({ text: 'Войти' });
-    this.setWrapperAttribute('novalidate', 'true');
+      
     this.setProps({
       events: {
         submit: (evt: Event) => {

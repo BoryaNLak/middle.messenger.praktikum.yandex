@@ -2,18 +2,14 @@ import { v4 as makeUUID } from 'uuid';
 import tmpl from './login.tml';
 import Block from '../../utils/Block';
 import LoginForm from './components/forms/login';
-import { Link } from '../../utils/Router';
-import { authApi } from '../../utils/Api';
+import Router, { Link } from '../../utils/Router';
 import { PATHS } from '../../utils/constants';
-import { handleError } from '../../utils/Error/utils';
+import { UserController, TLoginData, TStore } from '../../controllers';
+import { connect } from '../../utils/Store';
 
-function handleLogin(login: string, password: string) {
-  authApi.getUser({ login, password })
-    .then((data) => {
-      console.log('You successfully login', data);
-    })
-    .catch(handleError);
-};
+function mapStateToProps(state: TStore) {
+  return {};
+}
 
 type IProps = {
   loginInput: HTMLInputElement,
@@ -36,9 +32,13 @@ class Login extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'login';
     this.children.form = new LoginForm({
-      handleSubmit: (formData) => {
-        console.log('submit by loginform', formData);
-        handleLogin(formData.login, formData.password);
+      handleSubmit: (formData: TLoginData) => {
+        UserController.login(formData)
+          .then(UserController.getInitialData)
+          .then(() => {
+            Router.go(PATHS.MESSENGER_PATH);
+          })
+          .catch(UserController.handleError);
       },
     });
 
@@ -49,6 +49,10 @@ class Login extends Block {
     });
   }
 
+  componentDidMount(oldProps: { [x: string]: any; }): void {
+    UserController.checkAuthorization();
+  }
+
   render() {
     return this.compile(tmpl, {
       ...this.props,
@@ -57,4 +61,4 @@ class Login extends Block {
   }
 }
 
-export default Login;
+export default connect(Login, mapStateToProps);

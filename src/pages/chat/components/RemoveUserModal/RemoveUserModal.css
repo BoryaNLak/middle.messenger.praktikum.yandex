@@ -1,0 +1,11 @@
+.chat-modal__header {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #1E1E1E;
+  padding: 0;
+  margin: 0;
+}

@@ -2,7 +2,6 @@
 import HTTPTransport from '../HTTPTransport';
 import { YANDEX_API_URL } from '../constants';
 
-type Tdata = Record<string, string>;
 type Tsignin = {
   login: string,
   password: string,
@@ -17,33 +16,53 @@ type Tsignup = {
 }
 
 class AuthApi extends HTTPTransport {
-  signup({
-    first_name, second_name, login, email, password, phone,
-  }: Tsignup) {
-    const data: Tsignup = {
-      first_name, second_name, login, email, password, phone,
-    };
+  signup(data: Tsignup) {
     return this.post(`${YANDEX_API_URL}/auth/signup`, {
       data,
+      credentials: 'include',
     })
-      .then(this.checkResponse);
+      .then(this.extractResponse);
   }
 
-  signin(data:Tsignin): Promise<XMLHttpRequest> {
+  signin(data:Tsignin) {
     return this.post(`${YANDEX_API_URL}/auth/signin`, {
       data,
+      credentials: 'include',
     })
-      .then(this.checkResponse);
+      .then(this.extractResponse);
   }
 
   getUser() {
-    return this.get(`${YANDEX_API_URL}/auth/user`, {})
-      .then(this.checkResponse);
+    return this.get(
+      `${YANDEX_API_URL}/auth/user`,
+      {
+        credentials: 'include',
+      },
+    )
+      .then(this.extractResponse);
+  }
+
+  checkAuthorization() {
+    return this.get(
+      `${YANDEX_API_URL}/auth/user`,
+      {
+        credentials: 'include',
+      },
+    )
+      .catch((err) => {
+        if (err.status === 401) {
+          return Promise.resolve(false);
+        }
+        return Promise.resolve(true);
+      });
   }
 
   logout() {
-    return this.post(`${YANDEX_API_URL}/auth/logout`, {})
-      .then(this.checkResponse);
+    return this.post(
+      `${YANDEX_API_URL}/auth/logout`,
+      { credentials: 'include' },
+    )
+      .then(this.extractResponse);
   }
 }
 

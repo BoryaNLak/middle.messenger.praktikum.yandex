@@ -27,7 +27,7 @@ class Login extends Block {
     signupLink: Link,
   };
 
-  constructor(props = {}) {
+  constructor(tag: string, props = {}) {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'login';

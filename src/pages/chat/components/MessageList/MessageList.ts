@@ -31,6 +31,15 @@ class MessageList extends Block {
     });
   }
 
+  rebuildMessageList(messagesData: Tmessage[] | undefined) {
+    if (messagesData) {
+      this.children.messages = messagesData.map((item: Tmessage) => (new Message({
+        ...item,
+        handleReseteStyle: this.resetStyleStateMessages,
+      })));
+    }
+  }
+
   componentDidUpdate(): boolean {
     return true;
   }

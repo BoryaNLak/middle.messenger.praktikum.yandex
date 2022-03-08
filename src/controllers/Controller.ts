@@ -1,4 +1,5 @@
 import Store from '../utils/Store';
+import { cloneDeep } from '../utils/utils';
 
 class Controller<T> {
   private _controllerName: string;
@@ -15,6 +16,7 @@ class Controller<T> {
   }
 
   protected set(data: T) {
+    // const clone = cloneDeep(data);
     Store.set(this._controllerName, data);
   }
 

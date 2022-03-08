@@ -19,6 +19,7 @@ class DropdownItem extends Block {
     super('li', props);
     this._id = makeUUID();
     this.wrapperStyles = 'dropdown-menu__item';
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate(): boolean {

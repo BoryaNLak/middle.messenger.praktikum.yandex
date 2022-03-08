@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import EventBus from '../EventBus';
-import { set } from '../utils';
+import { set, cloneDeep } from '../utils';
 
 type Indexed<T = unknown> = {
   [key in string]: T;
@@ -22,6 +22,7 @@ class Store extends EventBus {
   }
 
   public set(path: string, value: unknown) {
+    // this.state = cloneDeep(this.state);
     set(this.state, path, value);
     this.emit(StoreEvents.Updated);
   }

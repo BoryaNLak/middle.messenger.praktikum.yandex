@@ -8,7 +8,7 @@ type Tprops = {
   rootQuery: string,
 }
 type BlockConstructor = {
-  new (props: Indexed): Block;
+  new (tag: string, props: Indexed): Block;
 };
 
 function isEqual(lhs: string, rhs: string) {
@@ -61,7 +61,7 @@ class Route {
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass({});
+      this._block = new this._blockClass('div', {});
       render(this._props.rootQuery, this._block);
       return;
     }

@@ -13,8 +13,8 @@ function ProtectedRoute(Component: typeof Block) {
     router.go(PATHS.LOGIN_PATH);
   }
   return class extends Component {
-    constructor(props: Indexed) {
-      super({ ...props });
+    constructor(tag: string, props: Indexed) {
+      super(tag, { ...props });
     }
   };
 }

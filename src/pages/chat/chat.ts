@@ -39,7 +39,7 @@ class Chat extends Block {
     contacts: Array<Contact>,
   };
 
-  constructor(props: TchatPage) {
+  constructor(tag: string, props: TchatPage) {
     super('section', props);
     this.wrapperStyles = 'chats';
 
@@ -66,35 +66,35 @@ class Chat extends Block {
       },
     });
 
+    this.renderChats();
+
+    this.children.createChatModal = new CreateChatModal({
+      handle: (value: TcreateChat) => {
+        ChatController.createChat(value)
+          .then(() => {
+            this.renderChats();
+          });
+      },
+    });
+  }
+
+  renderChats() {
     this.children.contacts = this.props.chats.map((chat) => (new Contact({
       ...chat,
       events: {
         click: () => {
           MessageController.initChatConnection(this.props.user.id, chat.id);
-          this.children.messages.setProps(
-            {
-              selectionChat: { name: chat.title, avatar: chat.avatar, id: chat.id },
-              messages: this.props.messagesData,
-            },
-          );
-          console.log(chat.title, chat.avatar, chat.id);
+          this.children.messages = new MessagesContainer({
+            selectionChat: { name: chat.title, avatar: chat.avatar, id: chat.id },
+            messages: this.props.messagesData,
+          });
+          MessageController.setUpdater(this.children.messages.rebuildMessageList);
         },
       },
     })));
-
-    this.children.createChatModal = new CreateChatModal({
-      handle: (value: TcreateChat) => {
-        ChatController.createChat(value);
-      },
-    });
   }
 
   componentDidUpdate(oldProps: { [x: string]: any; }, newProps: { [x: string]: any; }): boolean {
-    
-    console.log('----------', oldProps, newProps, oldProps === newProps);
-    if (oldProps.messagesData !== newProps.messagesData) {
-      this.children.messages.setProps({ messages: newProps.messagesData });
-    }
     return true;
   }
 

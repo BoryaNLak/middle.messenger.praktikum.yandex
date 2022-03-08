@@ -80,6 +80,7 @@ class MessagesContainer extends Block {
     super('div', props);
     this._id = makeUUID();
     this.wrapperStyles = 'chat__wide-container';
+    this.rebuildMessageList = this.rebuildMessageList.bind(this);
 
     this.children.messages = new MessageList({
       messagesData: this.props.messages[this.props.selectionChat.id],
@@ -133,7 +134,6 @@ class MessagesContainer extends Block {
           if (formData.message) {
             const message = formData.message as string;
             MessageController.sendMessage(message);
-            console.log('******************************************',{ ...this.props });
             localStore.resetStore();
             this.children.messageForm.clear();
           }
@@ -142,14 +142,11 @@ class MessagesContainer extends Block {
     });
   }
 
+  rebuildMessageList() {
+    this.children.messages.rebuildMessageList(this.props.messages[this.props.selectionChat.id]);
+  }
+
   componentDidUpdate(oldProps: { [x: string]: any; }, newProps: { [x: string]: any; }): boolean {
-    console.log('******', oldProps, newProps);
-    if (oldProps.selectionChat.avatar !== newProps.selectionChat.avatar || oldProps.selectionChat.name !== newProps.selectionChat.name) {
-      this.children.currentUser.setProps({ ...newProps.selectionChat });
-    }
-    // if (newProps.messages[this.props.selectionChat.id]) {
-    //   this.children.messages.setProps({ messages: newProps.messages[this.props.selectionChat.id] });
-    // }
     return true;
   }
 

@@ -6,7 +6,7 @@ type Indexed<U = unknown> = {
 };
 
 type BlockConstructor<T extends Block> = {
-  new (props: Indexed): T,
+  new (tag:string, props: Indexed): T,
 };
 
 class Router {

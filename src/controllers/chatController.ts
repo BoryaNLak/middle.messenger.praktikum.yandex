@@ -58,9 +58,7 @@ class ChatController extends Controller<TChatInitialValues> {
 
   public createChat(data: TcreateChat) {
     return chatApi.createChat(data)
-      .then(() => {
-        this.getChats();
-      })
+      .then(() => this.getChats())
       .catch(this.handleError);
   }
 

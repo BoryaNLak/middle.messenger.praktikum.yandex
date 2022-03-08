@@ -15,10 +15,19 @@ export type TMessageInitialValues = Record<number, Tmessage[]>
 
 const initialValues: TMessageInitialValues = { 0: [] };
 
+const toUTCDate = (strDate: string) => Date.parse(strDate);
+
+const sortMessages = (messageArray: Tmessage[]) => {
+  const res = messageArray.sort((prevMessage, message) => (toUTCDate(prevMessage.time) - toUTCDate(message.time)));
+  return res;
+};
+
 class MessageController extends Controller<TMessageInitialValues> {
   _currentChatId: number | null;
 
   _currentUserId: number | null;
+
+  _updateBlock: () => void;
 
   constructor() {
     super('messages', initialValues);
@@ -46,14 +55,19 @@ class MessageController extends Controller<TMessageInitialValues> {
       return;
     }
     if (id) {
-      const currentData = { ...this.getMyStore() };
+      const currentData = this.getMyStore();
       const currentChatData = currentData[id];
-      const newChatData = [...currentChatData, data];
+      const newChatData = sortMessages([...currentChatData, data]);
       const newData = { ...currentData, [id]: newChatData } as TMessageInitialValues;
       this.set(newData);
+      this._updateBlock();
     } else {
       throw Error('Chat container not initialised');
     }
+  }
+
+  public setUpdater(updateBlock: () => void) {
+    this._updateBlock = updateBlock;
   }
 
   public initChatConnection(userId: number | null, idChat: number | null) {

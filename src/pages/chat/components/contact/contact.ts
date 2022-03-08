@@ -23,6 +23,7 @@ class Contact extends Block {
     super('div', props);
     this._id = makeUUID();
     this.wrapperStyles = 'contact';
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate(): boolean {

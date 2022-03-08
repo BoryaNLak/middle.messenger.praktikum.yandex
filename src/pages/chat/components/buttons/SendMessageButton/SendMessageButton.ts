@@ -19,6 +19,7 @@ class SendMessageButton extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'chat__send_message-button';
     this.setWrapperAttribute('type', 'button');
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate() {

@@ -36,13 +36,12 @@ class Block {
   constructor(tagName = 'div', propsAndChildren = {}) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
-    this.children = children;
     this.wrapperStyles = '';
     this._meta = {
       tagName,
       props,
     };
-
+    this.children = this._makePropsProxy(children);
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -213,10 +212,13 @@ class Block {
   }
 
   setProps = (nextProps: Iprops) => {
-    if (!nextProps) {
-      return;
-    }
-    Object.assign(this.props, nextProps);
+    if (!nextProps) { return; }
+
+    const { children, props } = this._getChildren(nextProps);
+
+    if (Object.values(children).length) { Object.assign(this.children, children); }
+
+    if (Object.values(props).length) { Object.assign(this.props, props); }
   };
 
   compile(template: string, props: Iprops): DocumentFragment {
@@ -245,6 +247,7 @@ class Block {
             }
           } else if (stub instanceof HTMLElement) {
             stub.after(content);
+            stub = content;
           }
         });
       } else if (!Array.isArray(child)) {

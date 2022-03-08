@@ -15,6 +15,7 @@ class DropdownMenu extends Block {
     super('ul', props);
     this._id = makeUUID();
     this.wrapperStyles = `dropdown-menu ${props.wrapperStyles}`;
+    this.setWrapperStyles(this.wrapperStyles);
     this.children.dropdownItems = this.renderItems(props.dataItems);
   }
 

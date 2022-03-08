@@ -69,7 +69,7 @@ class Profile extends Block {
 
   goToProfile: () => void;
 
-  constructor(props = {}) {
+  constructor(tag: string, props = {}) {
     super('section', props);
     this._id = makeUUID();
     this.wrapperStyles = 'profile';

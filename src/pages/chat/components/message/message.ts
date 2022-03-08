@@ -5,7 +5,7 @@ import MenuMessage from '../MenuMessage';
 import { Tmessage } from '../../../../controllers';
 
 type TmessageComponent = Tmessage & {
-  handleReseteStyle: () => void
+  handleReseteStyle: () => void,
 }
 
 class Message extends Block {
@@ -21,6 +21,7 @@ class Message extends Block {
     super('div', props);
     this._id = makeUUID();
     this.wrapperStyles = 'message';
+    this.setWrapperStyles(this.wrapperStyles);
     this._showMenu = this._showMenu.bind(this);
     this._hideMenu = this._hideMenu.bind(this);
     this._handleClickByOverlay = this._handleClickByOverlay.bind(this);

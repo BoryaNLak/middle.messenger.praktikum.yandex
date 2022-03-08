@@ -19,6 +19,7 @@ class UserMenuButton extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'chat__current-user-menu';
     this.setWrapperAttribute('type', 'button');
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate() {

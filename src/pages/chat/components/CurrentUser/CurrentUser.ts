@@ -61,7 +61,7 @@ class CurrentUser extends Block {
         ...itemsDropdownTop[1],
         events: {
           click: () => {
-            this.props.handleClickByAddUser();
+            this.props.handleClickByRemoveUser();
           },
         },
       },

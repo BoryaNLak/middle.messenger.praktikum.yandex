@@ -4,6 +4,9 @@
 - /sign-up
 - /messenger
 - /settings
+- /*
+
+Роуты /messager и /settings - защищены авторизацией.
 
 Для сборки проекта используйте команду:
 ```sh
@@ -16,9 +19,18 @@ npm run start
 ```
 
 Ссылка на **Notlify**
+*https://zealous-hermann-acd586.netlify.app/*
 
-*https://gallant-noether-e603a9.netlify.app/*
-
-Ссылка на **pull-request**
-
-*https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/2*
+Тестирование:
+```sh
+npm run test
+```
+Перед началом тестирования измените параметры в tsconfig.json
+```sh
+"noUnusedLocals": false,
+"noUnusedParameters": false,
+```
+Версия для разработки доступна по адресу
+```sh
+127.0.0.1:1234
+```

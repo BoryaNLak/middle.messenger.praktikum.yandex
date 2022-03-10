@@ -16,6 +16,7 @@ class Submit extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'chat-form-submit';
     this.setWrapperAttribute('type', 'submit');
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate() {

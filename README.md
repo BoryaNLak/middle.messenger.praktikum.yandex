@@ -34,3 +34,7 @@ npm run test
 ```sh
 127.0.0.1:1234
 ```
+
+Ссылка на **PullRequest**
+*https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/3*
+

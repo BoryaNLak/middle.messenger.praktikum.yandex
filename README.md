@@ -19,7 +19,7 @@ npm run start
 ```
 
 Ссылка на **Notlify**
-*https://zealous-hermann-acd586.netlify.app/*
+*https://gallant-noether-e603a9.netlify.app/*
 
 Тестирование:
 ```sh

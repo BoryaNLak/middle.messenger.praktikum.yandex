@@ -1,7 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import tmpl from './MessagesContainer.tml';
 import Block from '../../../../utils/Block';
-import Message from '../message';
 import CurrentUser from '../CurrentUser';
 import AddUserModal from '../AddUserModal';
 import RemoveUserModal from '../RemoveUserModal';

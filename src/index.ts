@@ -6,7 +6,6 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import NotFound from './pages/error/notFound';
 import ProtectedRoute from './utils/Routes/ProtectedRoute';
-
 import { PATHS } from './utils/constants';
 
 Router

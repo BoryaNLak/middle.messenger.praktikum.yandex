@@ -11,6 +11,17 @@ export enum StoreEvents {
 }
 
 class Store extends EventBus {
+  private static instance: null | Store;
+
+  constructor() {
+    super();
+    if (Store.instance) {
+      return Store.instance;
+    }
+    Store.instance = this;
+    return Store.instance;
+  }
+
   private state: Indexed = {};
 
   public init(path: string, value: unknown) {

@@ -95,6 +95,9 @@ class Chat extends Block {
   }
 
   componentDidUpdate(oldProps: { [x: string]: any; }, newProps: { [x: string]: any; }): boolean {
+    // console.log('old', oldProps)
+    // console.log('new', newProps)
+    // console.log('**************')
     return true;
   }
 

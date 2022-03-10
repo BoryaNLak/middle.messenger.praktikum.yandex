@@ -1,4 +1,5 @@
 {
-  "extension": ["js"],
-  "spec": "src/test/**/*.spec.ts"
+  "extension": ["ts"],
+  "spec": "src/test/**/*.spec.ts",
+  "require": ["ts-node/register", "jsdom-global/register", "ignore-styles"]
 }

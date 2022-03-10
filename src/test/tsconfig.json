@@ -11,7 +11,7 @@
     "noUnusedParameters": false,
     "sourceMap": true,
     "strictNullChecks": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": ["src/test/**/*", "src/declaration.d.ts"]
+  "include": ["src/test/**/*"]
 }

@@ -19,6 +19,7 @@ class ChooseDataTypeButton extends Block {
     this._id = makeUUID();
     this.wrapperStyles = 'chat__attach-button';
     this.setWrapperAttribute('type', 'button');
+    this.setWrapperStyles(this.wrapperStyles);
   }
 
   componentDidUpdate() {

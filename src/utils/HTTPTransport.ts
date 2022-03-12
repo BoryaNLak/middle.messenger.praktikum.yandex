@@ -1,3 +1,5 @@
+import * as utils from './utils';
+
 const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -7,53 +9,49 @@ const METHODS = {
 
 const isObjectData = (data: unknown, isGet: boolean): data is Record<string, unknown> => isGet && !!data;
 
-function queryStringify(data: Record<string, unknown>): string {
-  if (typeof data !== 'object' || !data) {
-    throw new Error('Data must be object');
-  }
-
-  const keys = Object.keys(data);
-  return keys.reduce((result, key, index) => `${result}${key}=
-    ${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
-}
-
 type IOptions = {
-  timeout: number,
-  data?: Document | XMLHttpRequestBodyInit,
+  timeout?: number,
+  data?: Record<string, any>,
+  [k: string]: any,
 };
 
 type IRequestOption = {
   headers?: Record<string, string>,
   method: string,
-  data?: Document | XMLHttpRequestBodyInit,
+  credentials?: string,
+  data?: Record<string, any>,
 }
 
 class HTTPTransport {
+  constructor() {
+    this.extractResponse = this.extractResponse.bind(this);
+  }
+
   get(url: string, options: IOptions) {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   }
 
   post(url: string, options: IOptions) {
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   }
 
   put(url: string, options: IOptions) {
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   }
 
   delete(url: string, options: IOptions) {
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   }
 
-  request = (url: string, options: IRequestOption, timeout = 0) => {
+  request(url: string, options: IRequestOption, timeout = 0): Promise<XMLHttpRequest> {
     const {
       headers = {
         'Content-Type': 'application/json',
       },
-      method, data,
+      method, data, credentials,
     } = options;
 
-    return new Promise((resolve, reject) => {
+    return new Promise<XMLHttpRequest>((resolve, reject) => {
       if (!method) {
         reject(new Error('No method'));
         return;
@@ -65,9 +63,12 @@ class HTTPTransport {
       xhr.open(
         method,
         isObjectData(data, isGet)
-          ? `${url}${queryStringify(data)}`
+          ? `${url}${utils.queryStringify(data)}`
           : url,
       );
+      if (credentials === 'include') {
+        xhr.withCredentials = true;
+      }
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -89,11 +90,22 @@ class HTTPTransport {
 
       if (isGet || !data) {
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
+
+  extractResponse(response: XMLHttpRequest) {
+    try {
+      const json = JSON.parse(response.response);
+      return Promise.resolve(json);
+    } catch {
+      return Promise.resolve(response.response);
+    }
+  }
 }
 
 export default HTTPTransport;

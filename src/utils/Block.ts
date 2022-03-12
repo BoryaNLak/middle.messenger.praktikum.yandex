@@ -36,13 +36,12 @@ class Block {
   constructor(tagName = 'div', propsAndChildren = {}) {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
-    this.children = children;
     this.wrapperStyles = '';
     this._meta = {
       tagName,
       props,
     };
-
+    this.children = this._makePropsProxy(children);
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -59,8 +58,17 @@ class Block {
   }
 
   setWrapperStyles(classStyle = ''): void {
-    this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`;
-    this.setWrapperAttribute('class', `${this.wrapperStyles}`);
+    this.wrapperStyles = `${this.wrapperStyles} ${classStyle}`.trim();
+    this.setWrapperAttribute('class', `${this.wrapperStyles} ${classStyle}`.trim());
+  }
+
+  removeStyles(classStyle = ''): void {
+    this.wrapperStyles = this.wrapperStyles.replace(classStyle, '').trim();
+    this.getContent().classList.remove(classStyle);
+  }
+
+  toggleStyles(classStyle = ''): void {
+    this.getContent().classList.toggle(classStyle);
   }
 
   setWrapperAttribute(attribute:string, value:string): void {
@@ -132,16 +140,22 @@ class Block {
     });
   }
 
-  _getChildren(propsAndChildren: Record<string, boolean |string | Block | Array<Block>>) {
+  _arrayIsBlocks(arr: Block[] | Array<Record<string, string>>): arr is Block[] {
+    return (arr as Block[]).some((item) => (item instanceof Block));
+  }
+
+  _getChildren(propsAndChildren: Record<string, boolean | string | Block | Array<Block>>) {
     const children: Ichildren = {};
-    const props: Record<string, string | boolean> = {};
+    const props: Record<string, string | boolean | Array<Record<string, string>>> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       } else if (Array.isArray(value)) {
-        if (value.every((item) => (item instanceof Block))) {
+        if (this._arrayIsBlocks(value)) {
           children[key] = value;
+        } else {
+          props[key] = value;
         }
       } else {
         props[key] = value;
@@ -198,20 +212,22 @@ class Block {
   }
 
   setProps = (nextProps: Iprops) => {
-    if (!nextProps) {
-      return;
-    }
-    Object.assign(this.props, nextProps);
+    if (!nextProps) { return; }
+
+    const { children, props } = this._getChildren(nextProps);
+
+    if (Object.values(children).length) { Object.assign(this.children, children); }
+
+    if (Object.values(props).length) { Object.assign(this.props, props); }
   };
 
-  compile(template: string, props:Iprops): DocumentFragment {
+  compile(template: string, props: Iprops): DocumentFragment {
     const propsAndStubs = { ...props };
-
     this._removeEvents();
     Object.entries(this.children).forEach(([key, child]) => {
-      if (Array.isArray(child)) {
+      if (Array.isArray(child) && child.length > 0) {
         propsAndStubs[key] = `<div data-id="${child[0]._id}"></div>`;
-      } else {
+      } else if (!Array.isArray(child)) {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
       }
     });
@@ -220,23 +236,21 @@ class Block {
     const handlerBarTemplate = Handlebars.compile(template)(propsAndStubs);
     fragment.innerHTML = handlerBarTemplate;
     Object.values(this.children).forEach((child) => {
-      if (Array.isArray(child)) {
+      if (Array.isArray(child) && child.length > 0) {
         let stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child[0]._id}"]`);
         child.forEach((item, index) => {
+          const content = item.getContent();
           if (index === 0) {
-            const content = item.getContent();
             if (stub instanceof HTMLElement) {
               stub.replaceWith(content);
               stub = content;
             }
-          } else {
-            const content = item.getContent();
-            if (stub instanceof HTMLElement) {
-              stub.after(content);
-            }
+          } else if (stub instanceof HTMLElement) {
+            stub.after(content);
+            stub = content;
           }
         });
-      } else {
+      } else if (!Array.isArray(child)) {
         const stub: HTMLElement | null = fragment.content.querySelector(`[data-id="${child._id}"]`);
         if (stub instanceof HTMLElement) {
           stub.replaceWith(child.getContent());
@@ -246,6 +260,14 @@ class Block {
 
     this._addEvents();
     return fragment.content;
+  }
+
+  show() {
+    this.getContent().style.display = 'block';
+  }
+
+  hide() {
+    this.getContent().style.display = 'none';
   }
 }
 

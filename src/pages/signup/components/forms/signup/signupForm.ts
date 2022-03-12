@@ -11,7 +11,7 @@ const FORM_NAME = 'signupForm';
 
 const localStore = FormStore.initFormStore(FORM_NAME);
 
-const validation = (values: Record<string, string>): Record<string, string> => {
+const validation = (values: Record<string, string | FileList>): Record<string, string> => {
   const errors: Record<string, string> = {};
   if (values[inputsDataSignup[5].name] !== values[inputsDataSignup[6].name]) {
     errors[inputsDataSignup[6].name] = inputsDataSignup[6].error_message;
@@ -21,7 +21,7 @@ const validation = (values: Record<string, string>): Record<string, string> => {
 };
 
 type IProps = {
-  handleSubmit: (formData: Record<string, string>) => void,
+  handleSubmit: (formData: Record<string, string | FileList>) => void,
   events?: Record<string, () => void>
 }
 

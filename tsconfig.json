@@ -1,5 +1,11 @@
 {
+  "ts-node": {
+    "files": true
+   },
   "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -7,5 +13,5 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
   },
-  
+  "include": ["src/test/**/*", "src/declaration.d.ts"]
 }

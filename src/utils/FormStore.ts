@@ -1,17 +1,23 @@
 /* eslint-disable max-classes-per-file */
 class LocalSore {
-  _store: Record<string, string>;
+  _store: Record<string, string | FileList>;
 
   constructor() {
     this._store = {};
   }
 
-  onInput(fieldName: string, value: string) {
+  onInput(fieldName: string, value: string | FileList) {
     this._setData(fieldName, value);
   }
 
-  _setData(name: string, value: string) {
+  _setData(name: string, value: string | FileList) {
     this._store[name] = value;
+  }
+
+  resetStore() {
+    Object.keys(this._store).forEach((key) => {
+      this._store[key] = '';
+    });
   }
 
   getData() {

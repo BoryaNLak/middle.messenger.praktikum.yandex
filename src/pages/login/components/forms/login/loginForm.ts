@@ -12,7 +12,7 @@ const FORM_NAME = 'loginForm';
 const localStore = FormStore.initFormStore(FORM_NAME);
 
 type IProps = {
-  handleSubmit: (formData: Record<string, string>) => void,
+  handleSubmit: (formData: Record<string, string | FileList>) => void,
   events?: Record<string, () => void>,
 }
 
@@ -46,7 +46,7 @@ class LoginForm extends Block {
       },
     });
     this.children.submit = new Submit({ text: 'Войти' });
-    this.setWrapperAttribute('novalidate', 'true');
+
     this.setProps({
       events: {
         submit: (evt: Event) => {

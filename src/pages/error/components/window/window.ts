@@ -1,11 +1,12 @@
 import { v4 as makeUUID } from 'uuid';
 import tmpl from './window.tml';
 import Block from '../../../../utils/Block';
+import { Link } from '../../../../utils/Router';
 
 type IProps = {
   number: number,
   message: string,
-  link: string,
+  link: Link,
   events?: Record<string, () => void>
 }
 

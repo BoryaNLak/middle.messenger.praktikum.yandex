@@ -25,7 +25,7 @@ export type IProps = {
     input_styles: string,
     error_styles: string
   },
-  onInput?: (value:string) => void,
+  onInput?: (value:string | FileList) => void,
   events?: {
     input?: () => void,
   }
@@ -92,8 +92,18 @@ class Input extends Block {
         input: () => {
           this._inputValidation();
           if (this.props.onInput) {
-            const value = this.getValue();
-            this.props.onInput(value);
+            if (this.props.type !== 'file') {
+              const value = this.getValue();
+              this.props.onInput(value);
+            } else {
+              const input = this.getContent().querySelector('input');
+              if (input instanceof HTMLInputElement) {
+                const { files } = input;
+                if (files) {
+                  this.props.onInput(files);
+                }
+              }
+            }
           }
         },
         focusout: () => {
@@ -147,6 +157,10 @@ class Input extends Block {
       return input.value;
     }
     return '';
+  }
+
+  clear() {
+    this.setProps({ value: '' });
   }
 
   _getInput(): HTMLInputElement | undefined {

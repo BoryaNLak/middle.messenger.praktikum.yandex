@@ -32,6 +32,9 @@ let tmpl = `
       {{#if pattern }}
         pattern="{{ pattern }}"
       {{/if}}
+      {{#if accept }}
+        accept="{{ accept }}"
+      {{/if}}
       />
 `;
 

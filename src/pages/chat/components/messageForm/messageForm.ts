@@ -11,15 +11,23 @@ type IProps = {
 class MessageForm extends Block {
   props: IProps;
 
+  children: {
+    messageInput: MessageInput,
+  };
+
   constructor(props: IProps) {
     super('form', props);
     this.wrapperStyles = 'messageForm';
     this.children.messageInput = new MessageInput({
       ...inputData,
-      onInput: (value) => {
+      onInput: (value: string) => {
         this.props.handleInput(value);
       },
     });
+  }
+
+  clear() {
+    this.children.messageInput.clear();
   }
 
   componentDidUpdate(): boolean {

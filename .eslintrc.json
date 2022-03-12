@@ -17,6 +17,11 @@
     "no-param-reassign": 0,
     "no-use-before-define": 0,
     "import/no-mutable-exports": 0,
+    "no-constructor-return": 0,
+    "no-return-assign": 0,
+    "no-restricted-syntax": 0,
+    "no-continue": 0,
+    "no-useless-constructor": 0,
     "no-console": "off",
     "consistent-this": [2, "self",  "vm"],
     "import/extensions": [

@@ -1,164 +1,115 @@
 import tmpl from './chat.tml';
 import Block from '../../utils/Block';
-import MessageForm from './components/messageForm';
-import FormStore from '../../utils/FormStore';
-import SendMessageButton from './components/buttons/SendMessageButton';
-import ChooseDataTypeButton from './components/buttons/ChooseDataTypeButton';
-import UserMenuButton from './components/buttons/userMenuButton';
-import Message from './components/message';
 import Contact from './components/contact';
-import DropdownMenu from '../../components/dropdownMenu';
+import CreateChatButton from './components/buttons/CreateChatButton';
+import CreateChatModal from './components/CreateChatModal';
+import MessagesContainer from './components/MessagesContainer';
+import { Link } from '../../utils/Router';
+import { connect } from '../../utils/Store';
+import {
+  TStore, TUserInitialValues, TChatInitialValues, TMessageInitialValues, ChatController, MessageController,
+} from '../../controllers';
+import { TcreateChat } from '../../utils/Api';
+import { PATHS } from '../../utils/constants';
 
-import fileImage from '../../../static/icons/file.svg';
-import locationImage from '../../../static/icons/location.svg';
-import photoVideoImage from '../../../static/icons/photo_video.svg';
-import plusImage from '../../../static/icons/plus.svg';
-import crossImage from '../../../static/icons/cross.svg';
-import { contactsData, messagesData } from '../../utils/constants';
+function mapStateToProps(state: TStore) {
+  const data = {
+    user: state.user,
+    chats: state.chat,
+    messagesData: state.messages,
+  };
+  return data;
+}
 
-const itemsDropdownForm = [
-  {
-    icon: photoVideoImage,
-    text: 'Фото или Видео',
-    events: {
-      click: () => {
-        console.log('Click by photo');
-      },
-    },
-  },
-  {
-    icon: fileImage,
-    text: 'Файл',
-    events: {
-      click: () => {
-        console.log('Click by file');
-      },
-    },
-  },
-  {
-    icon: locationImage,
-    text: 'Локация',
-    events: {
-      click: () => {
-        console.log('Click by location');
-      },
-    },
-  },
-];
-
-const itemsDropdownTop = [
-  {
-    icon: plusImage,
-    text: 'Добавить пользователя',
-    events: {
-      click: () => {
-        console.log('Click by add');
-      },
-    },
-  },
-  {
-    icon: crossImage,
-    text: 'Удалить пользователя',
-    events: {
-      click: () => {
-        console.log('Click by remove');
-      },
-    },
-  },
-];
-
-const FORM_NAME = 'messageForm';
-
-const localStore = FormStore.initFormStore(FORM_NAME);
-
-type IProps = {
+type TchatPage = {
   events?: Record<string, () => void>
+  user: TUserInitialValues,
+  chats: TChatInitialValues,
+  messagesData: TMessageInitialValues
 }
 
 class Chat extends Block {
-  props: IProps;
+  props: TchatPage;
 
   children: {
-    messageForm: MessageForm,
-    sendButton: SendMessageButton,
-    attachButton: ChooseDataTypeButton,
-    userMenuButton: UserMenuButton,
-    dropdownFormMenu: DropdownMenu,
-    dropdownUserMenu: DropdownMenu,
-    messages: Array<Message>,
+    createChatButton: CreateChatButton,
+    createChatModal: CreateChatModal,
+    profileLink: Link,
+    messages: MessagesContainer,
     contacts: Array<Contact>,
   };
 
-  constructor(props: IProps) {
+  constructor(tag: string, props: TchatPage) {
     super('section', props);
     this.wrapperStyles = 'chats';
-    this.children.messageForm = new MessageForm({
-      handleInput: (value) => {
-        localStore.onInput('message', value);
-      },
+
+    this.children.profileLink = new Link({
+      text: 'Профиль',
+      to: PATHS.SETTINGS_PATH,
+      cssClass: 'chat__link chat__link_type_profile',
     });
-    this.children.sendButton = new SendMessageButton({
+
+    this.children.createChatButton = new CreateChatButton({
       events: {
         click: () => {
-          const formData = localStore.getData();
-          if (formData.message) {
-            console.log(formData);
-          }
-        },
-      },
-    });
-    this.children.userMenuButton = new UserMenuButton({
-      events: {
-        click: () => {
-          console.log('click by user menu button');
-          this.children.dropdownUserMenu.toggle();
+          this.children.createChatModal.show();
         },
       },
     });
 
-    this.children.attachButton = new ChooseDataTypeButton({
-      events: {
-        click: () => {
-          console.log('click by choose data type file');
-          this.children.dropdownFormMenu.toggle();
-        },
+    this.children.messages = new MessagesContainer({
+      messages: this.props.messagesData,
+      selectionChat: {
+        name: '',
+        avatar: '',
+        id: 0,
       },
     });
 
-    this.children.messages = messagesData.map((item) => (new Message({
-      ...item,
-    })));
-    this.children.contacts = contactsData.map((item) => (new Contact({
-      ...item,
-    })));
+    this.renderChats();
 
-    this.children.dropdownFormMenu = new DropdownMenu({
-      wrapperStyles: 'dropdown-menu_type_left dropdown-menu_type_top',
-      dataItems: itemsDropdownForm,
-    });
-    this.children.dropdownUserMenu = new DropdownMenu({
-      wrapperStyles: 'dropdown-menu_type_right dropdown-menu_type_bottom',
-      dataItems: itemsDropdownTop,
+    this.children.createChatModal = new CreateChatModal({
+      handle: (value: TcreateChat) => {
+        ChatController.createChat(value)
+          .then(() => {
+            this.renderChats();
+          });
+      },
     });
   }
 
-  componentDidUpdate(): boolean {
+  renderChats() {
+    this.children.contacts = this.props.chats.map((chat) => (new Contact({
+      ...chat,
+      events: {
+        click: () => {
+          MessageController.initChatConnection(this.props.user.id, chat.id);
+          this.children.messages = new MessagesContainer({
+            selectionChat: { name: chat.title, avatar: chat.avatar, id: chat.id },
+            messages: this.props.messagesData,
+          });
+          MessageController.setUpdater(this.children.messages.rebuildMessageList);
+        },
+      },
+    })));
+  }
+
+  componentDidUpdate(oldProps: { [x: string]: any; }, newProps: { [x: string]: any; }): boolean {
+    // console.log('old', oldProps)
+    // console.log('new', newProps)
+    // console.log('**************')
     return true;
   }
 
   render() {
     return this.compile(tmpl, {
       ...this.props,
-      messageForm: this.children.messageForm,
-      sendButton: this.children.sendButton,
       messages: this.children.messages,
       contacts: this.children.contacts,
-      dropdownFormMenu: this.children.dropdownFormMenu,
-      attachButton: this.children.attachButton,
-      userMenuButton: this.children.userMenuButton,
-      dropdownUserMenu: this.children.dropdownUserMenu,
+      createChatButton: this.children.createChatButton,
+      profileLink: this.children.profileLink,
     });
   }
 }
 
-export default Chat;
+export default connect(Chat, mapStateToProps);

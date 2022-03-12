@@ -13,8 +13,16 @@ const localStore = FormStore.initFormStore(FORM_NAME);
 
 type IProps = {
   events?: Record<string, () => void>,
-  handleSubmit: (formData: Record<string, string>) => void,
+  handleSubmit: (formData: Record<string, string | FileList>) => void,
   isEditable: boolean,
+  userData: {
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
+    phone: string,
+  }
 }
 
 class MainForm extends Block {
@@ -42,6 +50,7 @@ class MainForm extends Block {
     this.wrapperStyles = 'profile__form';
     this.children.emailInput = new InputProfile({
       ...inputsDataProfile[0],
+      value: this.props.userData.email,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
         localStore.onInput('email', value);
@@ -49,6 +58,7 @@ class MainForm extends Block {
     });
     this.children.loginInput = new InputProfile({
       ...inputsDataProfile[1],
+      value: this.props.userData.login,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
         localStore.onInput('login', value);
@@ -56,27 +66,31 @@ class MainForm extends Block {
     });
     this.children.firstNameInput = new InputProfile({
       ...inputsDataProfile[2],
+      value: this.props.userData.first_name,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
-        localStore.onInput('firstName', value);
+        localStore.onInput('first_name', value);
       },
     });
     this.children.secondNameInput = new InputProfile({
       ...inputsDataProfile[3],
+      value: this.props.userData.second_name,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
-        localStore.onInput('secondName', value);
+        localStore.onInput('second_name', value);
       },
     });
     this.children.nicknameInput = new InputProfile({
       ...inputsDataProfile[4],
+      value: this.props.userData.display_name,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
-        localStore.onInput('nickName', value);
+        localStore.onInput('display_name', value);
       },
     });
     this.children.phoneInput = new InputProfile({
       ...inputsDataProfile[5],
+      value: this.props.userData.phone,
       isDisable: !this.props.isEditable,
       onInput: (value) => {
         localStore.onInput('phone', value);
@@ -112,7 +126,6 @@ class MainForm extends Block {
       events: {
         submit: (evt: Event) => {
           evt.preventDefault();
-          // const formChildren = this.children;
           const formData = localStore.getData();
           this.props.handleSubmit(formData);
         },

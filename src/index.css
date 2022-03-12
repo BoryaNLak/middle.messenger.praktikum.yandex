@@ -1,2 +1,14 @@
 @import url(./vendor/normalize/normalize.css);
 @import url(./vendor/fonts/Inter-Web/inter.css);
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

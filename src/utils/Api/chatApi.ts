@@ -1,16 +1,16 @@
 import HTTPTransport from '../HTTPTransport';
 import { YANDEX_API_URL } from '../constants';
 
-export type TcreateChat = {
+type TcreateChat = {
   title: string,
 }
 
-export type TaddUserToChat = {
+type TaddUserToChat = {
   users: number[],
   chatId: number,
 }
 
-export type TremoveUserFromChat = TaddUserToChat;
+type TremoveUserFromChat = TaddUserToChat;
 
 class ChatApi extends HTTPTransport {
   getChats() {
@@ -46,3 +46,9 @@ class ChatApi extends HTTPTransport {
 }
 
 export default ChatApi;
+
+export {
+  TcreateChat,
+  TaddUserToChat,
+  TremoveUserFromChat,
+};

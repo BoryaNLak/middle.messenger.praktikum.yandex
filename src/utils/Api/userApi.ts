@@ -1,7 +1,7 @@
 import HTTPTransport from '../HTTPTransport';
 import { YANDEX_API_URL } from '../constants';
 
-export type TchangeProfile = {
+type TchangeProfile = {
   first_name: string,
   second_name: string,
   display_name: string,
@@ -10,12 +10,12 @@ export type TchangeProfile = {
   phone: string,
 }
 
-export type TchangePassword = {
+type TchangePassword = {
   oldPassword: string,
   newPassword: string,
 }
 
-export type TchangeAvatar = FormData
+type TchangeAvatar = FormData
 
 class UserApi extends HTTPTransport {
   changeUserProfile(data: TchangeProfile) {
@@ -63,3 +63,9 @@ class UserApi extends HTTPTransport {
 }
 
 export default UserApi;
+
+export {
+  TchangeProfile,
+  TchangePassword,
+  TchangeAvatar,
+};

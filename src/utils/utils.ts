@@ -44,6 +44,9 @@ function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
 function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
   if (typeof object !== 'object' || object === null) {
     return object;
+
+
+    
   }
 
   if (typeof path !== 'string') {

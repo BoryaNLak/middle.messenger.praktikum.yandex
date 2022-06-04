@@ -8,7 +8,8 @@
     "watch": "webpack --mode=development --watch --node-env=development",
     "start": "webpack-dev-server --mode=development --open",
     "test": "./node_modules/.bin/mocha --project ./src/test/tsconfig.json",
-    "lint": " eslint ./ "
+    "lint": " eslint ./ ",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Boris",
@@ -32,13 +33,12 @@
     "eslint-plugin-import": "2.25.3",
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
-    "husky": "8.0.1",
+    "husky": "^8.0.0",
     "ignore-styles": "5.0.1",
     "jsdom": "19.0.0",
     "jsdom-global": "3.0.2",
     "mini-css-extract-plugin": "2.6.0",
     "mocha": "9.2.1",
-    "npm-run-all": "4.1.5",
     "prettier": "2.6.2",
     "sinon": "13.0.1",
     "style-loader": "3.3.1",
@@ -55,11 +55,5 @@
     "express": "4.17.1",
     "handlebars": "4.7.7",
     "uuid": "8.3.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint",
-      "pre-push": "npm run test"
-    }
   }
 }

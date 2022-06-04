@@ -20,7 +20,7 @@ const config = {
   devServer: {
     port: 8000,
   },
-  devtool: isDevelopment ? 'source-map' : '',
+  devtool: isDevelopment ? 'source-map' : false,
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',

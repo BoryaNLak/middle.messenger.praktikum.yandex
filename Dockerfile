@@ -4,8 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE $PORT
 
 RUN npm install
+
+RUN npm run build
 
 CMD ["node", "server.js"]

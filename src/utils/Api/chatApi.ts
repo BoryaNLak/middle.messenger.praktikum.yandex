@@ -20,6 +20,13 @@ class ChatApi extends HTTPTransport {
       .then(this.extractResponse);
   }
 
+  getUnreadMessageNumber(chatId: string) {
+    return this.get(`${YANDEX_API_URL}/chats/new/${chatId}`, {
+      credentials: 'include',
+    })
+      .then(this.extractResponse);
+  }
+
   createChat(data: TcreateChat) {
     return this.post(`${YANDEX_API_URL}/chats`, {
       credentials: 'include',

@@ -1,5 +1,4 @@
 import Store from '../utils/Store';
-import { cloneDeep } from '../utils/utils';
 
 class Controller<T> {
   private _controllerName: string;

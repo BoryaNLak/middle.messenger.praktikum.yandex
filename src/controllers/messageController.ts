@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Controller from './Controller';
-import { socketApi } from '../utils/Api';
+import { socketApi, chatApi } from '../utils/Api';
 import { handleError } from '../utils/Error/utils';
 
 export type Tmessage = {
@@ -51,6 +51,12 @@ class MessageController extends Controller<TMessageInitialValues> {
 
   private addMessage(data: Tmessage) {
     const id = this._currentChatId;
+    if (data instanceof Array && id) {
+      const currentData = this.getMyStore();
+      const newData = { ...currentData, [id]: data } as TMessageInitialValues;
+      this.set(newData);
+      this._updateBlock();
+    }
     if (data.type && data.type !== 'message') {
       return;
     }
@@ -82,6 +88,7 @@ class MessageController extends Controller<TMessageInitialValues> {
         if (token) {
           socketApi.initSocket(userId, idChat, token);
           socketApi.addMessageHandler(this.addMessage);
+          this.getMessageList(String(idChat));
         }
       });
   }
@@ -95,6 +102,13 @@ class MessageController extends Controller<TMessageInitialValues> {
 
   public sendMessage(message: string) {
     socketApi.sendTextMessage(message);
+  }
+
+  public async getMessageList(chatId: string) {
+    const chatNumber = await chatApi.getUnreadMessageNumber(chatId);
+    if (chatNumber) {
+      socketApi.getMessageList('0');
+    }
   }
 
   public handleError(err: Record<string, unknown>) {

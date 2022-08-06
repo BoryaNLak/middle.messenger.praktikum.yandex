@@ -3,12 +3,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #FFFFFF;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  background-color: #fff;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   border-radius: 12px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgb(0 0 0 / 50%);
   z-index: 2;
 }
 
@@ -31,17 +31,17 @@
   justify-content: flex-start;
   align-items: center;
   padding: 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
   cursor: pointer;
 }
 
-.message__menu-item:last-child{
+.message__menu-item:last-child {
   border: none;
   margin-bottom: 0;
 }
 
 .message__menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(0 0 0 / 5%);
 }
 
 .message__menu-text {
@@ -50,7 +50,7 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 13px;
-  color: #1E1E1E;
+  color: #1e1e1e;
   text-align: right;
   padding: 0;
   margin: 0;

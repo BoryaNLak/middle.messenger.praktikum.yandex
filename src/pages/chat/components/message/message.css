@@ -9,14 +9,14 @@
 }
 
 .message_active {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgb(0 0 0 / 5%);
 }
 
 .message__window {
   max-width: 50%;
   padding: 10px;
   align-self: flex-start;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   border-top-left-radius: 0;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -28,7 +28,7 @@
 
 .message__window_right {
   align-self: flex-end;
-  background-color: #E4EDFD;
+  background-color: #e4edfd;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 0;
 }
@@ -39,9 +39,9 @@
   padding: 0;
 }
 
-.message__date{
+.message__date {
   font-family: inherit;
-  color: #999999;
+  color: #999;
   font-style: normal;
   font-weight: 500;
   font-size: 9px;
@@ -51,10 +51,10 @@
 }
 
 .message__date_checked {
-  color: #3369F3;
+  color: #3369f3;
 }
 
 .message__date_checked::before {
- content: '\f00c';
- font-family: FontAwesome;
+  content: "\f00c";
+  font-family: FontAwesome;
 }

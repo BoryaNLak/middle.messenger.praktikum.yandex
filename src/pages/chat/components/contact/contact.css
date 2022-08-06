@@ -1,33 +1,33 @@
 .contact {
   width: 100%;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid #eaeaea;
   margin: 0;
   padding: 10px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;  
+  align-items: center;
   height: 70px;
   box-sizing: border-box;
   cursor: pointer;
 }
 
 .contact:hover {
-  background-color: #E4EDFD;
+  background-color: #e4edfd;
 }
 
 .contact_active {
-  background-color: #E4EDFD;
+  background-color: #e4edfd;
 }
 
 .contact:first-child {
-  border-top: 1px solid #EAEAEA;
+  border-top: 1px solid #eaeaea;
 }
 
 .contact__photo {
   width: 47px;
   height: 47px;
   border-radius: 50%;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   object-fit: cover;
   color: transparent;
 }
@@ -58,12 +58,12 @@
   line-height: 13px;
   text-align: left;
   margin: 0;
-  padding: 5px 0 0 0;
+  padding: 5px 0 0;
 }
 
 .contact__last-message {
   font-family: inherit;
-  color: #999999;
+  color: #999;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -84,7 +84,7 @@
 
 .contact__message-date {
   font-family: inherit;
-  color: #999999;
+  color: #999;
   font-style: normal;
   font-weight: 500;
   font-size: 9px;
@@ -92,21 +92,21 @@
   text-align: right;
   margin: 0;
   padding: 0;
-} 
+}
 
 .contact__unread-messages {
   width: 20px;
   height: 20px;
   margin: 0;
   padding: 0 5px;
-  background-color: #3369F3;
+  background-color: #3369f3;
   border-radius: 36px;
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
   line-height: 12px;
-  color: #FFFFFF;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;

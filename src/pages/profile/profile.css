@@ -48,7 +48,7 @@
 
 .profile__link {
   text-decoration: none;
-  color: #3369F3;
+  color: #3369f3;
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
@@ -56,7 +56,7 @@
   line-height: 13px;
   margin: 0;
   padding: 10px 0;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid #eaeaea;
   width: 100%;
 }
 
@@ -69,13 +69,13 @@
 }
 
 .profile__link_alert {
-  color: #FF0000;
+  color: #f00;
 }
 
 .profile__navigation-buttom {
   border: 0;
   outline: 0;
-  color: #3369F3;
+  color: #3369f3;
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
@@ -83,7 +83,7 @@
   line-height: 13px;
   margin: 0;
   padding: 10px 0;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid #eaeaea;
   width: 100%;
   cursor: pointer;
   background-color: transparent;
@@ -95,7 +95,7 @@
 }
 
 .profile__navigation-buttom_type_alert {
-  color: #FF0000;
+  color: #f00;
 }
 
 .profile__save-buttom {
@@ -104,8 +104,8 @@
   margin-top: 40px;
   padding: 12px 0;
   border-radius: 8px;
-  background-color: #3369F3;
-  color: #FFFFFF;
+  background-color: #3369f3;
+  color: #fff;
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
@@ -118,7 +118,7 @@
   cursor: pointer;
 }
 
-.profile__save-buttom_show{
+.profile__save-buttom_show {
   display: block;
 }
 
@@ -139,16 +139,13 @@
   left: 0;
   height: 100vh;
   width: 5%;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   border: 0;
   outline: 0;
-  border-right: 1px solid #EAEAEA;
+  border-right: 1px solid #eaeaea;
   cursor: pointer;
 }
 
 .profile__link-back:hover {
   opacity: 0.8;
 }
-
-
-

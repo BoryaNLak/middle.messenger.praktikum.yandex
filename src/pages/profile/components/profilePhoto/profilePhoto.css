@@ -10,7 +10,7 @@
   border-radius: 50%;
   width: 130px;
   height: 130px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,6 +20,7 @@
   color: transparent;
   cursor: pointer;
 }
+
 .profile__photo:hover {
   opacity: 0.8;
 }
@@ -47,6 +48,6 @@
 }
 
 .profile__photo-title:hover {
-  background-color: rgba(0,0,0,0.5);
-  color: #FFFFFF;
+  background-color: rgb(0 0 0 / 50%);
+  color: #fff;
 }

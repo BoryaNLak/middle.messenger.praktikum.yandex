@@ -1,20 +1,27 @@
 import HTTPTransport from '../HTTPTransport';
 import { YANDEX_API_URL } from '../constants';
 
-export type TcreateChat = {
+type TcreateChat = {
   title: string,
 }
 
-export type TaddUserToChat = {
+type TaddUserToChat = {
   users: number[],
   chatId: number,
 }
 
-export type TremoveUserFromChat = TaddUserToChat;
+type TremoveUserFromChat = TaddUserToChat;
 
 class ChatApi extends HTTPTransport {
   getChats() {
     return this.get(`${YANDEX_API_URL}/chats`, {
+      credentials: 'include',
+    })
+      .then(this.extractResponse);
+  }
+
+  getUnreadMessageNumber(chatId: string) {
+    return this.get(`${YANDEX_API_URL}/chats/new/${chatId}`, {
       credentials: 'include',
     })
       .then(this.extractResponse);
@@ -46,3 +53,9 @@ class ChatApi extends HTTPTransport {
 }
 
 export default ChatApi;
+
+export {
+  TcreateChat,
+  TaddUserToChat,
+  TremoveUserFromChat,
+};

@@ -1,7 +1,9 @@
 import AuthApi from './authApi';
 import SocketApi from './SocketApi';
-import ChatApi, { TcreateChat } from './chatApi';
-import UserApi, { TchangeProfile, TchangePassword, TchangeAvatar } from './userApi';
+import ChatApi from './chatApi';
+import type { TcreateChat } from './chatApi';
+import UserApi from './userApi';
+import type { TchangeProfile, TchangePassword, TchangeAvatar } from './userApi';
 
 const authApi = new AuthApi();
 const userApi = new UserApi();

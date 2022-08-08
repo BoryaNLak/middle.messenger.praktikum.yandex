@@ -1,17 +1,19 @@
 {
-  "ts-node": {
-    "files": true
-   },
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2015",
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "moduleResolution": "node",
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "sourceMap": true,
     "strictNullChecks": true,
-    "esModuleInterop": true,
   },
-  "include": ["src/test/**/*", "src/declaration.d.ts"]
+  "files": ["src/index.ts"],
+  "include": ["src/declaration.d.ts"],
+    "exclude": [
+        "node_modules"
+    ]
 }

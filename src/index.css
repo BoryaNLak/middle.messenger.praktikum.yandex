@@ -1,5 +1,5 @@
-@import url(./vendor/normalize/normalize.css);
-@import url(./vendor/fonts/Inter-Web/inter.css);
+@import "./vendor/normalize/normalize.css";
+@import "./vendor/fonts/Inter-Web/inter.css";
 
 .page {
   width: 100vw;

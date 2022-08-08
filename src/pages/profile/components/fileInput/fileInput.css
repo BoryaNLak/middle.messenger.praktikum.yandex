@@ -6,7 +6,7 @@
   line-height: 16px;
   text-align: center;
   text-decoration-line: underline;
-  color: #3369F3;
+  color: #3369f3;
   cursor: pointer;
 }
 
@@ -21,6 +21,6 @@
   font-size: 12px;
   line-height: 16px;
   padding: 0;
-  margin: 20px 0 0 0;
-  color: #FF2F2F;
+  margin: 20px 0 0;
+  color: #ff2f2f;
 }

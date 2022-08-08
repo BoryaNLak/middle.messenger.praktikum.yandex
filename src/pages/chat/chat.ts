@@ -83,6 +83,7 @@ class Chat extends Block {
       ...chat,
       events: {
         click: () => {
+          console.log('handle click by chat');
           MessageController.initChatConnection(this.props.user.id, chat.id);
           this.children.messages = new MessagesContainer({
             selectionChat: { name: chat.title, avatar: chat.avatar, id: chat.id },
@@ -95,9 +96,6 @@ class Chat extends Block {
   }
 
   componentDidUpdate(oldProps: { [x: string]: any; }, newProps: { [x: string]: any; }): boolean {
-    // console.log('old', oldProps)
-    // console.log('new', newProps)
-    // console.log('**************')
     return true;
   }
 

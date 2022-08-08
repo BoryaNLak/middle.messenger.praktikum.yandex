@@ -21,6 +21,7 @@
     "no-return-assign": 0,
     "no-restricted-syntax": 0,
     "no-continue": 0,
+    "@typescript-eslint/no-var-requires": 0,
     "no-useless-constructor": 0,
     "no-console": "off",
     "consistent-this": [2, "self",  "vm"],

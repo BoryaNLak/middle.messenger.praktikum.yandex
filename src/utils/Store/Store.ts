@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import EventBus from '../EventBus';
-import { set, cloneDeep } from '../utils';
+import { set } from '../utils';
 
 type Indexed<T = unknown> = {
   [key in string]: T;

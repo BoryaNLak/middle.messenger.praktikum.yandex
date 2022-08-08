@@ -49,7 +49,6 @@ class SocketApi extends HTTPTransport {
   addMessageHandler(handler: Thandler) {
     if (this._socket) {
       this._socket.addEventListener('message', (evt: MessageEvent) => {
-        console.log('Получены данные', evt.data);
         const data = JSON.parse(evt.data);
         handler(data);
       });
@@ -68,6 +67,15 @@ class SocketApi extends HTTPTransport {
     if (this._socket) {
       this._socket.send(JSON.stringify({
         type: 'message',
+        content,
+      }));
+    }
+  }
+
+  getMessageList(content: string) {
+    if (this._socket) {
+      this._socket.send(JSON.stringify({
+        type: 'get old',
         content,
       }));
     }

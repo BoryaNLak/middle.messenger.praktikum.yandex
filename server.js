@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
-const port = process.env.PORT || PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(`${__dirname}/dist/`));
 
@@ -13,5 +13,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Run app on ${port} port`);
+  console.log(`Run app on ${PORT} port`);
 });

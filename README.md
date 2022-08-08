@@ -35,6 +35,10 @@ npm run test
 127.0.0.1:1234
 ```
 
+Ссылка на **Heroku**
+*https://boiling-springs-31171.herokuapp.com/messenger*
+
+
 Ссылка на **PullRequest**
-*https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/3*
+*https://github.com/BoryaNLak/middle.messenger.praktikum.yandex/pull/4*
 
